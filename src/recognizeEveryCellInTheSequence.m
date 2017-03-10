@@ -3,6 +3,7 @@ function [ recognizedCells ] = recognizeEveryCellInTheSequence( sequenceFile, di
 %   Detailed explanation goes here
     MIN_SIZE_CELL = 4500;
     recognizedCells = {};
+    imgsFinal = {};
     load(sequenceFile);
     
     imagesOfSerieByChannelCh0 = imagesOfSerieByChannel(:, 2);
@@ -25,9 +26,12 @@ function [ recognizedCells ] = recognizeEveryCellInTheSequence( sequenceFile, di
         for numCell = 1:length(cellsRejected)
             imgBinaryNoSmallCells(cellsRejected(numCell).PixelList(:, 2), cellsRejected(numCell).PixelList(:, 1)) = 0;
         end
-        imshow(imgBinaryNoSmallCells);
+        %imshow(imgBinaryNoSmallCells);
+        imgsFinal(end+1) = {imgBinaryNoSmallCells};
         recognizedCells(end+1) = {cells};
-        save(strcat(directory, 'recognizedCells'), 'recognizedCells', 'imgBinaryNoSmallCells');
     end
+    save(strcat(directory, 'recognizedCells'), 'recognizedCells', 'imgBinaryNoSmallCells');
+    
+    
 end
 
