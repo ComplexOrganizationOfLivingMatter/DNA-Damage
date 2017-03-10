@@ -60,9 +60,13 @@ function [ recognizedCells ] = recognizeEveryCellInTheSequence( sequenceFile, di
         end
     end
     
-    correspondingCells
+    finalCells = {};
     for actualLabel = 1:(actualLabelOfCell-1)
-        cellFrames(correspondingCells == actualLabel)
+        actualFrames = cellFrames(correspondingCells == actualLabel)
+        actualCells = cellsFound(correspondingCells == actualLabel);
+        if actualFrames > 3
+            finalCells(end+1) = {max(vertcat(actualCells.BoundingBox)), actualFrames}
+        end
     end
 end
 
