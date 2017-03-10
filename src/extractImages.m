@@ -3,7 +3,7 @@ function [ ] = extractImages( )
 %   Detailed explanation goes here
 %
 %   Developed by Pablo Vicente-Munuera
-    allImages = getAllFiles('data/images/');
+    allImages = getAllFiles('data\images\');
 
     %A big number because of the final if of the for
     previousNumChannel = 20;
