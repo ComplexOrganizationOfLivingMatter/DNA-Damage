@@ -8,6 +8,7 @@ function [ recognizedCells ] = recognizeEveryCellInTheSequence( sequenceFile, di
     
     imagesOfSerieByChannelCh0 = imagesOfSerieByChannel(:, 2);
     
+    %Recognize the cells on each frame
     for numImg = 1:length(imagesOfSerieByChannelCh0)
         img = imagesOfSerieByChannelCh0{numImg};
 %         %# Create the gaussian filter
@@ -22,6 +23,7 @@ function [ recognizedCells ] = recognizeEveryCellInTheSequence( sequenceFile, di
         cellAreas = vertcat(cells.Area);
         cellsRejected = cells(cellAreas <= MIN_SIZE_CELL);
         cells = cells(cellAreas > MIN_SIZE_CELL);
+        cells.frame = numImg;
         imgBinaryNoSmallCells = imgFilled;
         for numCell = 1:length(cellsRejected)
             imgBinaryNoSmallCells(cellsRejected(numCell).PixelList(:, 2), cellsRejected(numCell).PixelList(:, 1)) = 0;
@@ -32,6 +34,27 @@ function [ recognizedCells ] = recognizeEveryCellInTheSequence( sequenceFile, di
     end
     save(strcat(directory, 'recognizedCells'), 'recognizedCells', 'imgBinaryNoSmallCells');
     
+    %Relate each file with its correspondence on the other frames
+    cellsFound = vertcat(recognizedCells{:});
+    totalCellsFound = length(cellsFound);
+    %First number: label, second number: frameNumber
+    correspondingCells = zeros(totalCellsFound, 2);
     
+    actualLabelOfCell = 1;
+    for numCellActual = 1:totalCellsFound
+        if correspondingCells == 0
+            actualCell = recognizedCells{numCellActual};
+            correspondingCells(numCellActual, 1) = actualLabelOfCell;
+            correspondingCells(numCellActual, 2) = actualCell.frame;
+            for numCellToRecognized = 2:totalCellsFound
+                if numCellToRecognized ~= numCellActual
+                    cellToRecognized = recognizedCells{numCellActual};
+                    
+                end
+            end
+            
+            actualLabelOfCell = actualLabelOfCell + 1;
+        end
+    end
 end
 
