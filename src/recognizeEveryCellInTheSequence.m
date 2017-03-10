@@ -1,4 +1,4 @@
-function [ recognizedCells ] = recognizeEveryCellInTheSequence( sequenceFile, directory )
+function [ finalCells ] = recognizeEveryCellInTheSequence( sequenceFile, directory )
 %RECOGNIZEEVERYCELLINTHESEQUENCE Summary of this function goes here
 %   Detailed explanation goes here
     MIN_SIZE_CELL = 4500;
@@ -46,12 +46,15 @@ function [ recognizedCells ] = recognizeEveryCellInTheSequence( sequenceFile, di
     for numCellActual = 1:totalCellsFound
         if correspondingCells(numCellActual) == 0
             actualCell = cellsFound(numCellActual);
+            actualFrame = cellFrames(numCellActual);
             correspondingCells(numCellActual) = actualLabelOfCell;
             for numCellToRecognized = 2:totalCellsFound
                 if numCellToRecognized ~= numCellActual && correspondingCells(numCellToRecognized) == 0
                     cellToRecognized = cellsFound(numCellToRecognized);
-                    if (length(intersect(actualCell.PixelList, cellToRecognized.PixelList, 'rows')) > MIN_SIZE_CELL/2)
+                    frameToRecognized = cellFrames(numCellToRecognized);
+                    if (length(intersect(actualCell.PixelList, cellToRecognized.PixelList, 'rows')) > MIN_SIZE_CELL/2) && abs(actualFrame - frameToRecognized) <= MAX_DST_FRAMES
                         correspondingCells(numCellToRecognized) = actualLabelOfCell;
+                        actualFrame = frameToRecognized;
                     end
                 end
             end
@@ -62,11 +65,13 @@ function [ recognizedCells ] = recognizeEveryCellInTheSequence( sequenceFile, di
     
     finalCells = {};
     for actualLabel = 1:(actualLabelOfCell-1)
-        actualFrames = cellFrames(correspondingCells == actualLabel)
+        actualFrames = cellFrames(correspondingCells == actualLabel);
         actualCells = cellsFound(correspondingCells == actualLabel);
-        if actualFrames > 3
-            finalCells(end+1) = {max(vertcat(actualCells.BoundingBox)), actualFrames}
+        if length(actualFrames) > 3
+            finalCells(end+1, :) = {max(vertcat(actualCells.BoundingBox)), actualFrames};
         end
     end
+    
+    save(strcat(directory, 'recognizedCells'), 'recognizedCells', 'imgBinaryNoSmallCells', 'finalCells');
 end
 
