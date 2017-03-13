@@ -144,7 +144,7 @@ if celulanovalida==0
     aux1=zeros(recorte(4)+1,recorte(3)+1);
     
     for corte=1:Long
-        capa=imcrop(pl{corte},rect);
+        capa=imcrop(pl{frames(corte)},rect);
         capa=capa .* mascara_validatoria;
         h=fspecial('gaussian',[7 7], 1.5);
         capa=imfilter(capa,h);
@@ -161,7 +161,7 @@ if celulanovalida==0
     
     for corte=1:Long
         % Recorte de la celula
-        capa=imcrop(pl{corte},recorte);
+        capa=imcrop(pl{frames(corte)},recorte);
         capa=capa.*mascara_validatoria;
         h=fspecial('gaussian',[7 7], 1.5);
         capa=imfilter(capa,h);
