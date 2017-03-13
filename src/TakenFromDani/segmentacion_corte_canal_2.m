@@ -12,9 +12,9 @@ function segmentacion_corte_canal_2(nameFile, canal,numCell, rect, frames)
     canal=num2str(canal);
 
     %% Proyeccion de todos los planos
-    proyeccionb=pl{1,1};
+    proyeccionb=pl{frames(1),1};
     for k=frames
-        maximo = max(proyeccionb,pl{1+k});
+        maximo = max(proyeccionb,pl{k});
         proyeccionb=maximo;
     end
     proyb=proyeccionb;

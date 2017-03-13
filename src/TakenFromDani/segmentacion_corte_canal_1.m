@@ -25,9 +25,9 @@ recorte=rect;
 canal=num2str(canal);
 
 %% Proyeccion de todos los planos
-proyecciong=pl{1};
+proyecciong=pl{frames(1)};
 for k=frames
-    maximo = max(proyecciong,pl{1+k});
+    maximo = max(proyecciong,pl{k});
     proyecciong=maximo;
 end
 %figure, imshow(proyecciong),title('Proyeccion de todo los planos')

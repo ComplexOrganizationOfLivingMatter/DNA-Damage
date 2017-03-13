@@ -67,7 +67,8 @@ function [ finalCells ] = recognizeEveryCellInTheSequence( sequenceFile, directo
         actualFrames = cellFrames(correspondingCells == actualLabel);
         actualCells = cellsFound(correspondingCells == actualLabel);
         if length(actualFrames) > 3
-            finalCells(end+1, :) = {max(vertcat(actualCells.BoundingBox)), actualFrames};
+            boundingBoxes = vertcat(actualCells.BoundingBox);
+            finalCells(end+1, :) = {[min(boundingBoxes(:, 1)) min(boundingBoxes(:, 2)) max(boundingBoxes(:, 3)) max(boundingBoxes(:, 4))], actualFrames};
         end
     end
     
