@@ -1,4 +1,4 @@
-function [Diapositiva,celulanovalida]=segmentacion_corte_canal_1(nameFile, canal, numCell, rect, Diapositiva)
+function [Diapositiva,celulanovalida]=segmentacion_corte_canal_1(nameFile, canal, numCell, rect, Diapositiva, frames)
 %% Segmentacion por cortes y por celula del canal 1
 %Para ejecutar este codigo primero hay que ejecutar
 %segmentacion_cortes_canal_2
@@ -26,7 +26,7 @@ canal=num2str(canal);
 
 %% Proyeccion de todos los planos
 proyecciong=pl{1};
-for k=1:Long-1
+for k=frames
     maximo = max(proyecciong,pl{1+k});
     proyecciong=maximo;
 end
