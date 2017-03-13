@@ -8,10 +8,11 @@ function [ finalCells ] = recognizeEveryCellInTheSequence( sequenceFile, directo
     load(sequenceFile);
     
     imagesOfSerieByChannelCh0 = imagesOfSerieByChannel(:, 2);
-    
+    MAX_SIZE = 0;
     %Recognize the cells on each frame
     for numImg = 1:length(imagesOfSerieByChannelCh0)
         img = imagesOfSerieByChannelCh0{numImg};
+        MAX_SIZE = size(img);
 %         %# Create the gaussian filter
 %         gaussianFilter = fspecial('gaussian', [7 7], 1.5);
 %         %# Filter it
@@ -66,8 +67,8 @@ function [ finalCells ] = recognizeEveryCellInTheSequence( sequenceFile, directo
     for actualLabel = 1:(actualLabelOfCell-1)
         actualFrames = cellFrames(correspondingCells == actualLabel);
         actualCells = cellsFound(correspondingCells == actualLabel);
-        if length(actualFrames) > 3
-            boundingBoxes = vertcat(actualCells.BoundingBox);
+        if length(actualFrames) > 3 && borderCell(actualCells, MAX_SIZE) == 0
+            boundingBoxes = round(vertcat(actualCells.BoundingBox));
             finalCells(end+1, :) = {[min(boundingBoxes(:, 1)) min(boundingBoxes(:, 2)) max(boundingBoxes(:, 3)) max(boundingBoxes(:, 4))], actualFrames};
         end
     end
