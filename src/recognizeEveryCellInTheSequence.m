@@ -32,7 +32,6 @@ function [ finalCells ] = recognizeEveryCellInTheSequence( sequenceFile, directo
         imgsFinal(end+1) = {imgBinaryNoSmallCells};
         recognizedCells(end+1) = {cells};
     end
-    save(strcat(directory, 'recognizedCells'), 'recognizedCells', 'imgBinaryNoSmallCells');
     
     %Relate each file with its correspondence on the other frames
     cellFrames = cellfun(@(x, y) ones(length(x) , 1)*y, recognizedCells, mat2cell(1:length(imagesOfSerieByChannelCh0), 1, ones(length(imagesOfSerieByChannelCh0), 1)), 'UniformOutput', false);
