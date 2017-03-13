@@ -1,4 +1,4 @@
-function segmentacion_corte_canal_2(nameFile, canal,numCell,rect)
+function segmentacion_corte_canal_2(nameFile, canal,numCell, rect, frames)
 
     %% Datos
     load(nameFile);
@@ -13,7 +13,7 @@ function segmentacion_corte_canal_2(nameFile, canal,numCell,rect)
 
     %% Proyeccion de todos los planos
     proyeccionb=pl{1,1};
-    for k=1:Long-1
+    for k=frames
         maximo = max(proyeccionb,pl{1+k});
         proyeccionb=maximo;
     end
