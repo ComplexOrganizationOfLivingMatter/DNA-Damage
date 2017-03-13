@@ -7,7 +7,7 @@ function segmentacion_corte_canal_2(nameFile, canal,numCell, rect, frames)
     im=imagesOfSerieByChannel;
     pl=imagesOfSerieByChannel(:, canal+1);
     [H,W,~]=size(im{1,1});
-    Long=size(im, 1);
+    Long=length(frames);
 
     canal=num2str(canal);
 
