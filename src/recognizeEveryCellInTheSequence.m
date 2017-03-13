@@ -69,7 +69,7 @@ function [ finalCells ] = recognizeEveryCellInTheSequence( sequenceFile, directo
         actualCells = cellsFound(correspondingCells == actualLabel);
         if length(actualFrames) > 3 && borderCell(actualCells, MAX_SIZE) == 0
             boundingBoxes = round(vertcat(actualCells.BoundingBox));
-            finalCells(end+1, :) = {[min(boundingBoxes(:, 1)) min(boundingBoxes(:, 2)) max(boundingBoxes(:, 3)) max(boundingBoxes(:, 4))], actualFrames};
+            finalCells(end+1, :) = {[min(boundingBoxes(:, 1))-5 min(boundingBoxes(:, 2))-5 max(boundingBoxes(:, 3))+10 max(boundingBoxes(:, 4))+10], actualFrames};
         end
     end
     
