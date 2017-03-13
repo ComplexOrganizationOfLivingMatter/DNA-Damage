@@ -72,6 +72,6 @@ function [ finalCells ] = recognizeEveryCellInTheSequence( sequenceFile, directo
         end
     end
     
-    save(strcat(directory, 'recognizedCells'), 'recognizedCells', 'imgBinaryNoSmallCells', 'finalCells');
+    save(strcat(directory, '\recognizedCells'), 'recognizedCells', 'imgBinaryNoSmallCells', 'finalCells');
 end
 
