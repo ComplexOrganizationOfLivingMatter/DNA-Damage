@@ -10,7 +10,7 @@ nameFileSplitted = strsplit(nameFile, '\');
 nameFileSplittedNoExtension = strsplit(nameFileSplitted{end}, '.');
 nameFileSplittedNoExtension = nameFileSplittedNoExtension{1};
 directory = strcat(nameFileSplitted{1}, '\segmentation\', nameFileSplitted{3}, '\', nameFileSplittedNoExtension);
-fichero=strcat(directory, '\segmentacion_ch_', num2str(canal+1),'-Cell_', numCell);
+fichero=strcat(directory, '\segmentacion_ch_', num2str(canal+1),'-Cell_', num2str(numCell));
 load(fichero);
 
 proyb=proyeccionb;
@@ -87,7 +87,7 @@ for i=1:length(ind)
         else
             celulanovalida=1;
             close all
-            string=strcat('Alerta : Celula-',numCell,' no valida');
+            string=strcat('Alerta : Celula-',num2str(numCell),' no valida');
             disp(string)
             break
         end
@@ -414,7 +414,7 @@ if celulanovalida==0
     end
     Matriz_resultado{Med,1}=objeto;
     
-    fichero=strcat(directory, '\segmentacion_ch_', canal,'-Cell_', numCell);
+    fichero=strcat(directory, '\segmentacion_ch_', canal,'-Cell_', num2str(numCell));
     save (fichero,'mascara_validatoria','proyeccionb','proy_bin_azul','masc_celulas','proyecciong','mask_fosi','mask_fosi_pico','MSK_general','Matriz_resultado','pos_seed','Bordes','BWcell','picos_proy')
     
 end
