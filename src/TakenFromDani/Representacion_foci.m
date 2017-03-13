@@ -1,11 +1,11 @@
-function Diapositiva=Representacion_foci(nameFile, cell, rect, Diapositiva)
+function Diapositiva=Representacion_foci(nameFile, cell, rect, Diapositiva, frames)
 
 %% DATOS DEL PLANO VERDE
 canal=num2str(0);
 
 load(nameFile);
 
-N_cortes = size(imagesOfSerieByChannel, 1);
+N_cortes = size(frames, 1);
 nameFileSplitted = strsplit(nameFile, '\');
 nameFileSplittedNoExtension = strsplit(nameFileSplitted{end}, '.');
 nameFileSplittedNoExtension = nameFileSplittedNoExtension{1};

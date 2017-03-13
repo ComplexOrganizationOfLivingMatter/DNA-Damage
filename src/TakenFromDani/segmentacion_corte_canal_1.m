@@ -15,7 +15,7 @@ load(fichero);
 
 proyb=proyeccionb;
 im=imagesOfSerieByChannel;
-Long=length(im);
+Long=length(frames);
 proyb=proyeccionb;
 BWcelulas=masc_celulas;
 pl=imagesOfSerieByChannel(:, canal+1);
