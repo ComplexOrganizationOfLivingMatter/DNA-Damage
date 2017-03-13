@@ -2,7 +2,7 @@ function segmentacion_corte_canal_2(nameFile, canal,numCell, rect, frames)
 
     %% Datos
     load(nameFile);
-
+    Long = length(frames);
     Diapositiva = 0;
     im=imagesOfSerieByChannel;
     pl=imagesOfSerieByChannel(:, canal+1);
