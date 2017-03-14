@@ -1,4 +1,4 @@
-function Compro_foci_hetero(nameFile,numCell,rect,Diapositiva)
+function Compro_foci_hetero(nameFile,numCell,rect,Diapositiva, frames)
 
 %% DATOS DEL PLANO AZUL
 nameFileSplitted = strsplit(nameFile, '\');
@@ -14,7 +14,7 @@ nombre2=strcat('Cell_',numCell);
 stringres=strcat(directory, '\', nombre2,'_results.mat');
 load(stringres);
 
-corte_max = size(Bordes, 1);
+corte_max = size(frames, 1);
 
 
 
