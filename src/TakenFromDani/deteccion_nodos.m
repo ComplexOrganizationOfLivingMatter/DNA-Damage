@@ -41,7 +41,7 @@ if Matriz_resultado{1,1}~=0
         %     % Comprobacion
         %     picos_proy1=picos_proy;
         %     picos_proy1(mask==0)=0;
-        %     %figure;imshow(picos_proy)
+        %     %figure('visible', 'off');imshow(picos_proy)
         %
         %     PR=zeros(rect(4)+1,rect(3)+1);
         %     PR=PR+mask;
@@ -55,14 +55,14 @@ if Matriz_resultado{1,1}~=0
         %     MSK_general=cat(3,PR,PG,PB);
         %
         %     %Representaciones
-        %     figure,imshow(MSK_general);title('Picos de gH2AX sobre mascara general')
+        %     figure('visible', 'off'),imshow(MSK_general);title('Picos de gH2AX sobre mascara general')
     end
     
     
     % % Comprobacion II
     %     picos_proy1=picos_proy;
     %     picos_proy1(MSK_T==0)=0;
-    %     %figure;imshow(picos_proy)
+    %     %figure('visible', 'off');imshow(picos_proy)
     %
     %     PR=zeros(rect(4)+1,rect(3)+1);
     %     PR=PR+MSK_T;
@@ -74,9 +74,9 @@ if Matriz_resultado{1,1}~=0
     %     PB(picos_proy1==1)=0;
     %
     %     MSK_Tl=cat(3,PR,PG,PB);
-    %     figure;imshow(MSK_Tl)
+    %     figure('visible', 'off');imshow(MSK_Tl)
     % ma=imcrop(proyecciong,rect);
-    % figure,imshow(ma)
+    % figure('visible', 'off'),imshow(ma)
     
     
     

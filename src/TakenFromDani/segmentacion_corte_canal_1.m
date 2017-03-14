@@ -30,35 +30,35 @@ for k=frames
     maximo = max(proyecciong, pl{k});
     proyecciong = maximo;
 end
-%figure, imshow(proyecciong),title('Proyeccion de todo los planos')
+%figure('visible', 'off'), imshow(proyecciong),title('Proyeccion de todo los planos')
 proyg=proyecciong;
 
 % Recorte de la proteccion de la capa verde de la celula
 proyg_rect1=imcrop(proyg,recorte);
 proyg_rect1=proyg_rect1.*mascara_validatoria;
-%figure, imshow(proyg_rect),title('Proyeccion del recorte')
+%figure('visible', 'off'), imshow(proyg_rect),title('Proyeccion del recorte')
 h=fspecial('gaussian',[7 7], 1.5);
 proyg_rect=imfilter(proyg_rect1,h);
 
 % Binarizamos la imagen
 umbral=graythresh(proyg_rect);
 BW=im2bw(proyg_rect,umbral);
-%figure, imshow(BW),title('Binarizamos la imagen')
+%figure('visible', 'off'), imshow(BW),title('Binarizamos la imagen')
 
 % Eliminacion de objetos formados por 4 pixeles o menos
 aux=bwareaopen(BW,4);
-%figure,imshow(aux);title('Eliminacion de objetos formados por 4 pixeles o menos')
+%figure('visible', 'off'),imshow(aux);title('Eliminacion de objetos formados por 4 pixeles o menos')
 
 % Suavizamos contornos y rompemos conexiones debiles
 h=strel('diamond',1);
 aux=imopen(aux,h);
-%figure,imshow(aux);title('Suavizamos contornos y rompemos conexiones debiles')
+%figure('visible', 'off'),imshow(aux);title('Suavizamos contornos y rompemos conexiones debiles')
 
 % Rellenamos huecos
 aux=imfill(aux,'holes');
 mascara=aux;
 proy_bin=aux;
-%figure,imshow(aux);title('Rellenamos los huecos verdes')
+%figure('visible', 'off'),imshow(aux);title('Rellenamos los huecos verdes')
 
 % Buscamos todos los picos sobre la imagen recortada
 lo=logical(aux);
@@ -100,7 +100,7 @@ for i=1:length(ind)
 end
 if celulanovalida==0
     picos_proy=picos;
-    %figure,imshow(picos_proy);title('picos de gH2AX')
+    %figure('visible', 'off'),imshow(picos_proy);title('picos de gH2AX')
     
     %Representaciones
     proy_bin1=proy_bin;
@@ -114,7 +114,7 @@ if celulanovalida==0
     PB(proy_bin==1)=1;
     
     MSK_proy_bin=cat(3,PR,PG,PB);
-    figure;subplot(1,2,1),imshow(proyg_rect1);title('Proyeccion del plano verde')
+    figure('visible', 'off');subplot(1,2,1),imshow(proyg_rect1);title('Proyeccion del plano verde')
     subplot(1,2,2),imshow(MSK_proy_bin);title('Picos de gH2AX sobre proyeccion binarizada')
     
     %%%BORRAR EN CUANTO TERMINE %%%%%%
@@ -129,7 +129,7 @@ if celulanovalida==0
     PG(P==1)=1;
     PB(P1==1)=1;
     MSK_P=cat(3,PR,PG,PB);
-    % figure,subplot(1,2,2);imshow(MSK_P);title('Picos de gH2AX sobre proyeccion binarizada azul')
+    % figure('visible', 'off'),subplot(1,2,2);imshow(MSK_P);title('Picos de gH2AX sobre proyeccion binarizada azul')
     % subplot(1,2,1);imshow(proyb_rect);title('Proyeccion del plano azul')
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
@@ -171,21 +171,21 @@ if celulanovalida==0
             % Binarizamos la imagen
 
             BW=im2bw(capa,umbral_fin);
-            %figure, imshow(BW),title('Binarizamos la imagen')
+            %figure('visible', 'off'), imshow(BW),title('Binarizamos la imagen')
 
             % Eliminacion de objetos formados por 4 pixeles o menos
             aux=bwareaopen(BW,4);
-            %figure,imshow(aux);title('Eliminacion de objetos formados por 4 pixeles o menos')
+            %figure('visible', 'off'),imshow(aux);title('Eliminacion de objetos formados por 4 pixeles o menos')
 
             % Suavizamos contornos y rompemos conexiones debiles
             h=strel('diamond',1);
             aux=imopen(aux,h);
-            %figure,imshow(aux);title('Suavizamos contornos y rompemos conexiones debiles')
+            %figure('visible', 'off'),imshow(aux);title('Suavizamos contornos y rompemos conexiones debiles')
 
             % Rellenamos huecos
             aux=imfill(aux,'holes');
             mask=aux;
-            %figure,imshow(aux);title('Rellenamos los huecos')
+            %figure('visible', 'off'),imshow(aux);title('Rellenamos los huecos')
 
             mask1=mask;
             mask(picos_proy==1)=0;
@@ -204,7 +204,7 @@ if celulanovalida==0
 
             %Representaciones
             %             titulo=strcat('Picos de gH2AX sobre mascara en corte -', num2str(corte));
-            %             figure;subplot(1,2,1),imshow(capa)
+            %             figure('visible', 'off');subplot(1,2,1),imshow(capa)
             %             subplot(1,2,2),imshow(MSK);title(titulo)
             %
             mask_fosi{1,corte}=aux;
@@ -212,15 +212,15 @@ if celulanovalida==0
 
         end
 
-        %figure;imshow(aux1)
+        %figure('visible', 'off');imshow(aux1)
 
         % Eliminamos puntos adquiridos como picos de focis que no se encuentren
         % sobre ningun objeto de la imagen proyeccion de las distintas capas
         % segmentadas
         mask=aux1;
-        %figure;imshow(picos_proy);title('antes')
+        %figure('visible', 'off');imshow(picos_proy);title('antes')
         picos_proy(mask==0)=0;
-        % figure;imshow(picos_proy);title('despues')
+        % figure('visible', 'off');imshow(picos_proy);title('despues')
 
         PR=zeros(recorte(4)+1,recorte(3)+1);
         PR=PR+mask;
@@ -234,7 +234,7 @@ if celulanovalida==0
         MSK_general=cat(3,PR,PG,PB);
 
         %Representaciones
-        %figure,imshow(MSK_general);title('Picos de gH2AX sobre mascara general')
+        %figure('visible', 'off'),imshow(MSK_general);title('Picos de gH2AX sobre mascara general')
 
         %Numeramos picos de la proyeccion
         picos_num = bwlabel(picos_proy);

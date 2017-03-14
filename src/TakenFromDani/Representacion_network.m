@@ -31,7 +31,7 @@ if planos==123 || planos==132 || planos==213 || planos==321 || planos==231 || pl
 end
 if tresD==0
     %%Representamos centroides
-    figure;h=plot(X(1,1),Y(1,1),'.','Color',color,'Markersize',tamg);
+    figure('visible', 'off');h=plot(X(1,1),Y(1,1),'.','Color',color,'Markersize',tamg);
     if  size(NV,1)~=1
         for i=2:size(NV,1)
             hold on; plot(X(i,1),Y(i,1),'.','Color',color,'Markersize',tamg)
@@ -106,7 +106,7 @@ if tresD==0
     title(ncb)
 else
     %%Representamos centroides
-    figure;h=plot3(X(1,1),Y(1,1),Z(1,1),'.','Color',color,'Markersize',tamg);
+    figure('visible', 'off');h=plot3(X(1,1),Y(1,1),Z(1,1),'.','Color',color,'Markersize',tamg);
     if size(NV,1)~=1
         for i=2:size(NV,1)
             hold on; plot3(X(i,1),Y(i,1),Z(i,1),'.','Color',color,'Markersize',tamg)

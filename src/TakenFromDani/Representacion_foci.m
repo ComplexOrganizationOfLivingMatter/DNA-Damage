@@ -342,7 +342,7 @@ eje_z_cont=(eje_z_cont-1)*Rel_dist_z;
 proyblue_rect=imcrop(masc_celulas,rect);
 proyblue_rect=proyblue_rect.*mascara_validatoria;
 p_proyblue_rect=bwperim(proyblue_rect);
-%figure;imshow(p_proyblue_rect)
+%figure('visible', 'off');imshow(p_proyblue_rect)
 
 pos_seed_blue = regionprops(p_proyblue_rect, 'PixelList');
 pos_seed_blue = struct2cell(pos_seed_blue);
@@ -656,7 +656,7 @@ numg=12;
 numr=6;
 color_nodos_verdes=[0 0.5 0];
 color_nodos_rojos=[0.6 0 0];
-% figure;plot3(eje_x_green,Tam_imagen_rect_um_y-eje_y_green,eje_z_green,'.g','MarkerSize', numg)
+% figure('visible', 'off');plot3(eje_x_green,Tam_imagen_rect_um_y-eje_y_green,eje_z_green,'.g','MarkerSize', numg)
 % hold on;plot3(eje_x_red,Tam_imagen_rect_um_y-eje_y_red,eje_z_red,'.r','MarkerSize', numr)
 %
 % plot3(eje_x_green_node,Tam_imagen_rect_um_y-eje_y_green_node,eje_z_green_node,'.','Color',color_nodos_verdes,'MarkerSize', numg)
@@ -670,7 +670,7 @@ color_nodos_rojos=[0.6 0 0];
 %
 %
 %
-figure;subplot(1,2,1),plot(eje_x_green,Tam_imagen_rect_um_y-eje_y_green,'.g','MarkerSize', numg)
+figure('visible', 'off');subplot(1,2,1),plot(eje_x_green,Tam_imagen_rect_um_y-eje_y_green,'.g','MarkerSize', numg)
 hold on;plot(eje_x_blue,Tam_imagen_rect_um_y-eje_y_blue,'.b')
 %plot(eje_x_red,Tam_imagen_rect_um_y-eje_y_red,'.r','MarkerSize', numr);
 axis ([ 0 rect(3)*Rel_dist_x 0 rect(4)*Rel_dist_y])
@@ -701,7 +701,7 @@ numeracion=strcat('-f',Diapositivach);
 print(numeracion,'-dtiff',stringres)
 % 
 % 
-figure;subplot(1,2,1),plot(eje_x_green,eje_z_green,'.g','MarkerSize', numg)
+figure('visible', 'off');subplot(1,2,1),plot(eje_x_green,eje_z_green,'.g','MarkerSize', numg)
 hold on;plot(planoxz,eje_z_cont,'b')
 nba=strcat('Cell_',cell,'-rgb-Proyeccion X-Z');
 title(nba)
@@ -727,7 +727,7 @@ Diapositivach=num2str(Diapositiva);
 numeracion=strcat('-f',Diapositivach);
 print(numeracion,'-dtiff',stringres)
 
-figure;subplot(1,2,1),plot(Tam_imagen_rect_um_y-eje_y_green,eje_z_green,'.g','MarkerSize', numg)
+figure('visible', 'off');subplot(1,2,1),plot(Tam_imagen_rect_um_y-eje_y_green,eje_z_green,'.g','MarkerSize', numg)
 hold on;plot(planoyz,eje_z_cont,'b')
 
 nca=strcat('Cell_',cell,'-rgb-Proyeccion Y-Z');
