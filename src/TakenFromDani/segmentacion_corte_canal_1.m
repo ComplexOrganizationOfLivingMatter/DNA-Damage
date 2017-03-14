@@ -152,10 +152,8 @@ if celulanovalida==0
         umbral(corte)=graythresh(capa);
     end
     
-    if max(umbral) > 0
-        % figure;plot(1:Long,umbral)
-        umbral_fin=findpeaks(umbral,'SORTSTR','descend');
-        
+    umbral_fin=findpeaks(umbral,'SORTSTR','descend');
+    if max(umbral) > 0 && length(umbral_fin) > 0
         umbral_fin=umbral_fin(umbral_fin > (max(umbral_fin) * 0.5));
 
         umbral_fin = min(umbral_fin)*1.2;
@@ -421,7 +419,7 @@ if celulanovalida==0
         save (fichero,'mascara_validatoria','proyeccionb','proy_bin_azul','masc_celulas','proyecciong','mask_fosi','mask_fosi_pico','MSK_general','Matriz_resultado','pos_seed','Bordes','BWcell','picos_proy')
     else
         celulanovalida = 1;
-        disp(strcat('There is no green peaks in ell-', num2str(numCell)));
+        disp(strcat('Alerta : There is no green peaks in Cell-', num2str(numCell)));
     end
 end
     
