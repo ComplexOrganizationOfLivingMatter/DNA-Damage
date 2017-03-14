@@ -2,7 +2,7 @@ function dibujo(num_hetero_um,color)
 h=1;
 %Dibujamos heterocromatina
 if color==2
-    figure;
+    figure('visible', 'off');
 else
     hold on
 end

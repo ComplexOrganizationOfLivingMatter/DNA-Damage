@@ -18,7 +18,8 @@ function [ finalCells ] = recognizeEveryCellInTheSequence( sequenceFile, directo
 %         %# Filter it
 %         imgGuass = imfilter(img, gaussianFilter, 'same');
         imgDilatted = imclose(img, strel('disk', 5));
-        imgBinary = im2bw(imgDilatted, 0.28);
+        %imgBinary = im2bw(imgDilatted, mean(imgDilatted(imgDilatted > 0)));
+        imgBinary = im2bw(imgDilatted, graythresh(imgDilatted));
         imgRemoveBridges = bwmorph(imgBinary, 'bridge', Inf);
         imgFilled = bwmorph(imgRemoveBridges, 'fill', Inf);
         cells = regionprops(imgFilled, 'all');
