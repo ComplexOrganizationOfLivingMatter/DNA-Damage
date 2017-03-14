@@ -585,7 +585,7 @@ for i=1:size(nodo_final,1)
                 end
             end
         end
-        if exist(objeto_renombrado, 'var') > 0
+        if exist('objeto_renombrado', 'var') > 0
             aux{i-count,1}=objeto_renombrado;
         else 
             aux(i-count,:)=[];
