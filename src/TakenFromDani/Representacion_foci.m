@@ -47,7 +47,7 @@ recorre=size(Matriz_resultado,1);
 for i=1:length(Objetos)
     nuevo=1;
     for j=1:recorre
-        if Matriz_resultado{j,1}==i
+        if Matriz_resultado{j,1}==Objetos(i)
             tam=size(Matriz_resultado{j,4},2);
             picos{i,1}(1,nuevo:nuevo-1+tam)=Matriz_resultado{j,4};
             nuevo=nuevo+tam;
@@ -364,7 +364,7 @@ if Matriz_resultado{1,1}~=0
     for i=1:length(Objetos)
         nuevo=1;
         for j=1:recorre
-            if Matriz_resultado{j,1}==i
+            if Matriz_resultado{j,1}==Objetos(i)
                 tam=size(Matriz_resultado{j,4},2);
                 picos{i,1}(1,nuevo:nuevo-1+tam)=Matriz_resultado{j,4};
                 nuevo=nuevo+tam;
@@ -855,6 +855,3 @@ stringres=strcat(directory, '\', nombre2,'_results.mat');
 save (stringres,'Datos', 'Matriz_resultadov','Matriz_resultador','Datos_objeto','iteracion_ver','Conectividad','Conectividad_dir_ver','Conectividad_dir_k_1_ver','Conectividad_dir_k_2_ver','DistanciaV','Pesos_g','NV','eje_x_green_node','eje_y_green_node','eje_z_green_node')
 
 end
-
-
-
