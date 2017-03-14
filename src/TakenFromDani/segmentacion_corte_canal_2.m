@@ -306,8 +306,7 @@ function segmentacion_corte_canal_2(nameFile, canal,numCell, rect, frames)
     directory = strcat(nameFileSplitted{1}, '\segmentation\', nameFileSplitted{3}, '\', nameFileSplittedNoExtension);
     
     imageCropped = imcrop(proyb,rect);
-    imwrite(proyb, strcat('results\segmentation\', nameFileSplitted{end - 1}, '\', nameFileSplittedNoExtension,'\image', '.jpg'))
-    imwrite(imageCropped, strcat('results\segmentation\', nameFileSplitted{end - 1}, '\', nameFileSplittedNoExtension, '\image', '_Cell_', numCell, '.jpg'))
+    imwrite(imageCropped, strcat('results\segmentation\', nameFileSplitted{end - 1}, '\', nameFileSplittedNoExtension, '\image', '_Cell_', num2str(numCell), '.jpg'))
     fichero=strcat(directory, '\segmentacion_ch_', canal,'-Cell_', num2str(numCell));
     save (fichero,'mascara_validatoria','proyeccionb','proyb_rect','proy_bin_azul','mask_Hetero','Matriz_resultado','masc_celulas','Bordes','BWcell')
 end
