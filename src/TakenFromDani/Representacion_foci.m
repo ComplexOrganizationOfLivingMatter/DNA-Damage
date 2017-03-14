@@ -5,7 +5,7 @@ canal=num2str(0);
 
 load(nameFile);
 
-N_cortes = size(frames, 1);
+N_cortes = length(frames);
 nameFileSplitted = strsplit(nameFile, '\');
 nameFileSplittedNoExtension = strsplit(nameFileSplitted{end}, '.');
 nameFileSplittedNoExtension = nameFileSplittedNoExtension{1};
@@ -68,7 +68,7 @@ for i=1:length(Objetos)
         for k=1:recorre
             coin=find(Matriz_resultado{k,4}==ind_pico);
             if isempty(coin)==0
-                if Matriz_resultado{k,1}==i
+                if Matriz_resultado{k,1}==Objetos(i)
                     if primera_vez==0
                         primera_vez=1;
                         picos{i,1}(j,2)=Matriz_resultado{k,2};
@@ -389,7 +389,7 @@ if Matriz_resultado{1,1}~=0
             for k=1:recorre
                 coin=find(Matriz_resultado{k,4}==ind_pico);
                 if isempty(coin)==0
-                    if Matriz_resultado{k,1}==i
+                    if Matriz_resultado{k,1}==Objetos(i)
                         if primera_vez==0
                             primera_vez=1;
                             picos{i,1}(j,2)=Matriz_resultado{k,2};

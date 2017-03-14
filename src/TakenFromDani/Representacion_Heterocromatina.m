@@ -14,7 +14,7 @@ nombre2=strcat('Cell_',numCell);
 stringres=strcat(directory, '\', nombre2,'_results.mat');
 load(stringres);
 
-corte_max = size(frames, 1);
+corte_max = length(frames);
 
 
 
