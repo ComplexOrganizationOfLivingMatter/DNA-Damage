@@ -87,7 +87,7 @@ function segmentacion_corte_canal_2(nameFile, canal,numCell, rect, frames)
 
     %Umbral para detectar la heterocromatina de forma generalizada
     for corte=1:Long
-        capa=imcrop(pl{corte},rect);
+        capa=imcrop(pl{frames(corte)},rect);
         capa=capa.*mascara_validatoria;
         h=fspecial('gaussian',[7 7], 1.5);
         capa=imfilter(capa,h);
@@ -101,7 +101,7 @@ function segmentacion_corte_canal_2(nameFile, canal,numCell, rect, frames)
 
     for corte=1:Long
         % Detecta la heterocromatina de una celula determinada en cada uno de los cortes
-        capa=imcrop(pl{corte},rect);
+        capa=imcrop(pl{frames(corte)},rect);
         capa=capa.*mascara_validatoria;
         capa=imadjust(capa,[0 max(max(capa))], [0 1]);
         h=fspecial('gaussian',[7 7], 1.5);
@@ -132,7 +132,7 @@ function segmentacion_corte_canal_2(nameFile, canal,numCell, rect, frames)
         La=bwlabel(aux,8);
         med=unique(La);
         numobj=length(med)-1;
-        capa=imcrop(pl{corte},rect);
+        capa=imcrop(pl{frames(corte)},rect);
         capa=capa.*mascara_validatoria;
         %figure;imshow(capa)
         % Binarizo la imagen proyeccion
