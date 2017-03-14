@@ -37,6 +37,13 @@ function [] = pipeline( )
             if exist(firstOuputFile, 'file') ~= 2
                 rect = infoCells{numCell, 1};
                 rect(rect<1) = 1;
+                if rect(1) + rect(3) >= size(imgBinaryNoSmallCells, 1)
+                    rect(3) = size(imgBinaryNoSmallCells, 1) - 1 - rect(1);
+                end
+                if rect(2) + rect(4) >= size(imgBinaryNoSmallCells, 2)
+                    rect(4) = size(imgBinaryNoSmallCells, 2) - 1 - rect(2);
+                end
+                %rect(rect>size(imgBinaryNoSmallCells, 1)) = size(imgBinaryNoSmallCells, 1);
                 %rect = [rect(2) rect(1) rect(4) rect(3)];
                 frames = infoCells{numCell, 2};
                 frames = frames';
