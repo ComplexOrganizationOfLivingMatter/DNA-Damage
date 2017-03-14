@@ -25,12 +25,19 @@ function [] = pipeline( )
         %numCell=input('Introduzca el numero de la celula a capturar: ');
         %numCell=num2str(numCell);
         
-        infoCells = recognizeEveryCellInTheSequence(fullPathImage, directory);
+        if exist(strcat(directory, '\recognizedCells.mat'), 'file') ~= 2
+            infoCells = recognizeEveryCellInTheSequence(fullPathImage, directory);
+        else
+            load(strcat(directory, '\recognizedCells.mat'));
+            infoCells = finalCells;
+        end
         
         for numCell = 1:length(infoCells)
-            firstOuputFile = strcat(directory, '\', 'Cell_', numCell, '_', 'Proyeccion_General_3D_FOCI-VERDE-2.tiff');
+            firstOuputFile = strcat(directory, '\', 'Cell_', num2str(numCell), '_', 'Proyeccion_General_3D_FOCI-VERDE-2.tiff');
             if exist(firstOuputFile, 'file') ~= 2
                 rect = infoCells{numCell, 1};
+                rect(rect<0) = 0;
+                %rect = [rect(2) rect(1) rect(4) rect(3)];
                 frames = infoCells{numCell, 2};
                 frames = frames';
                 %[numCell,rect]=selectCell(fullPathImage, numCell);
@@ -39,12 +46,12 @@ function [] = pipeline( )
                 [Diapositiva, cellnoval] = segmentacion_corte_canal_1(fullPathImage,0,numCell,rect, Diapositiva, frames);
                 if cellnoval==0
                     % %% Detection of green nodes
-                    deteccion_nodos(fullPathImage,0,numCell,rect)
+                    deteccion_nodos(fullPathImage,0,num2str(numCell),rect)
                     % % %Representacion y almacenamiento de datos
-                    Diapositiva=Representacion_foci(fullPathImage, numCell, rect, Diapositiva, frames);
-                    Diapositiva=Representacion_Heterocromatina(fullPathImage, numCell, rect, Diapositiva);
+                    Diapositiva=Representacion_foci(fullPathImage, num2str(numCell), rect, Diapositiva, frames);
+                    Diapositiva=Representacion_Heterocromatina(fullPathImage, num2str(numCell), rect, Diapositiva, frames);
 
-                    Compro_foci_hetero(fullPathImage, numCell, rect, Diapositiva);
+                    Compro_foci_hetero(fullPathImage, num2str(numCell), rect, Diapositiva, frames);
                 end
             end
             close all
