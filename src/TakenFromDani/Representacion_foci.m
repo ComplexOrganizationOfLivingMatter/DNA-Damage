@@ -44,7 +44,7 @@ Tam_imagen_rect_um_y=Height_recor*Rel_dist_y;
 Objetos=unique(cell2mat(Matriz_resultado(:,1)));
 recorre=size(Matriz_resultado,1);
 %Asignamos a cada objeto el numero de picos asociados
-for i=Objetos
+for i=1:length(Objetos)
     nuevo=1;
     for j=1:recorre
         if Matriz_resultado{j,1}==i
@@ -61,7 +61,7 @@ end
 primera_vez=0;
 cuenta=0;
 
-for i=Objetos
+for i=1:length(Objetos)
     npicos=length(picos{i,1});
     for j=1:npicos
         ind_pico=picos{i,1}(j,1);
@@ -361,7 +361,7 @@ if Matriz_resultado{1,1}~=0
     
     %Asignamos a cada objeto el numero de picos asociados
     clear picos
-    for i=Objetos
+    for i=1:length(Objetos)
         nuevo=1;
         for j=1:recorre
             if Matriz_resultado{j,1}==i
@@ -382,7 +382,7 @@ if Matriz_resultado{1,1}~=0
     primera_vez=0;
     cuenta=0;
     
-    for i=Objetos
+    for i=1:length(Objetos)
         npicos=length(picos{i,1});
         for j=1:npicos
             ind_pico=picos{i,1}(j,1);
