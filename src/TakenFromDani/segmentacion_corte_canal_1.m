@@ -153,10 +153,16 @@ if celulanovalida==0
     end
     
     umbral_fin=findpeaks(umbral,'SORTSTR','descend');
+    if ~isempty(umbral_fin)
+        umbral_fin=umbral_fin(umbral_fin > 0.03);
+    end
+    
     if max(umbral) > 0 && ~isempty(umbral_fin)
-        umbral_fin=umbral_fin(umbral_fin > 0.7);
-
-        umbral_fin = min(umbral_fin)*1.2;
+        if min(umbral_fin) <= 0.7
+            umbral_fin = min(umbral_fin)*1.2;
+        else
+            umbral_fin = min(umbral_fin);
+        end
 
 
 
