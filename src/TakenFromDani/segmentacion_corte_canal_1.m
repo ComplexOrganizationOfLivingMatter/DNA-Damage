@@ -145,10 +145,11 @@ if celulanovalida==0
         h=fspecial('gaussian',[7 7], 1.5);
         capa=imfilter(capa,h);
         capa=capa.*mascara;
-        umbral(corte)=graythresh(capa);
+        umbral(corte)=mean(capa(capa > 0));
     end
     
-    umbral_fin=findpeaks(umbral,'SORTSTR','descend');
+    %umbral_fin=findpeaks(umbral,'SORTSTR','descend');
+    umbral_fin = umbral;
     if ~isempty(umbral_fin)
         umbral_fin=umbral_fin(umbral_fin > 0.03);
     end
