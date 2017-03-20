@@ -114,7 +114,7 @@ for i=1:objeto
 end
 dibujo(num_foci_verde_um,1);
 
-save(strcat(directory, '\', 'Cell_', numCell, '_', 'MappingInfoHeterochromatinAndFoci', 'num_foci_verde_um', 'num_foci_verde', 'num_hetero_um', 'num_hetero'))
+save(strcat(directory, '\', 'Cell_', numCell, '_', 'MappingInfoHeterochromatinAndFoci'), 'num_foci_verde_um', 'num_foci_verde', 'num_hetero_um', 'num_hetero')
 
 stringres=strcat(directory, '\', 'Cell_',numCell, '_', 'Proyeccion_General_3D_FOCI-VERDE-2.tiff');
 savefig(strcat(directory, '\', 'Cell_',numCell, '_', 'Proyeccion_General_3D_FOCI-VERDE-2'));
