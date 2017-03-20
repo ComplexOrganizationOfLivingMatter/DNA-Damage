@@ -19,8 +19,7 @@ function segmentacion_corte_canal_2(nameFile, canal,numCell, rect, frames)
     end
     
     proyb=proyeccionb;
-    %% Transformaciones morfologicas para obtener forma de cada celula(Se utilizará para detectar automaticamente el numero de celulas por imagen y asi evitar el recorte)
-
+    %% Transformaciones morfologicas para obtener forma de cada celula(Se utilizará para detectar automaticamente el numero de celulas por imagen y asi evitar el recorte
     % Binarizo la imagen proyeccion
     proyb_eq=histeq(proyb);
     BW=im2bw(proyb_eq,0.82);
@@ -56,17 +55,20 @@ function segmentacion_corte_canal_2(nameFile, canal,numCell, rect, frames)
     mascara_validatoria=logical(mascara_validatoria);
     %%
     proyb_rect=imcrop(proyb,rect);
+    proyb_rect = adapthisteq(proyb_rect, 'Distribution', 'rayleigh');
+    %proyb_rect = imsharpen(proyb_rect);
     proyb_rect=proyb_rect.*mascara_validatoria;
     h=fspecial('gaussian',[7 7], 1.5);
     imfilt=imfilter(proyb_rect,h);
     %figure, imshow(imfilt)
-    BG=medfilt2(proyb_rect,[60 60]);%
+    BG = medfilt2(proyb_rect,[60 60]);
+    BG(imfilt>0) = mean(BG(BG > 0));
     %figure, imshow(BG)
 
     dif=imfilt-BG;
     %figure, imshow(dif)
-    umbral=graythresh(dif);
-    BW=im2bw(dif,umbral*1.5);
+    umbral = graythresh(dif);
+    BW=im2bw(dif, umbral*1.5);
     %figure, imshow(BW),title('Binarizamos la imagen')
 
     % Eliminacion de objetos formados por 4 pixeles o menos
@@ -87,7 +89,7 @@ function segmentacion_corte_canal_2(nameFile, canal,numCell, rect, frames)
 
     %Umbral para detectar la heterocromatina de forma generalizada
     for corte=1:Long
-        capa=imcrop(pl{frames(corte)},rect);
+        capa=imcrop(adapthisteq(pl{frames(corte)}, 'Distribution', 'rayleigh'), rect);
         capa=capa.*mascara_validatoria;
         h=fspecial('gaussian',[7 7], 1.5);
         capa=imfilter(capa,h);
@@ -101,7 +103,7 @@ function segmentacion_corte_canal_2(nameFile, canal,numCell, rect, frames)
 
     for corte=1:Long
         % Detecta la heterocromatina de una celula determinada en cada uno de los cortes
-        capa=imcrop(pl{frames(corte)},rect);
+        capa=imcrop(adapthisteq(pl{frames(corte)}, 'Distribution', 'rayleigh'), rect);
         capa=capa.*mascara_validatoria;
         capa=imadjust(capa,[0 max(max(capa))], [0 1]);
         h=fspecial('gaussian',[7 7], 1.5);
@@ -132,7 +134,7 @@ function segmentacion_corte_canal_2(nameFile, canal,numCell, rect, frames)
         La=bwlabel(aux,8);
         med=unique(La);
         numobj=length(med)-1;
-        capa=imcrop(pl{frames(corte)},rect);
+        capa=imcrop(adapthisteq(pl{frames(corte)}, 'Distribution', 'rayleigh'),rect);
         capa=capa.*mascara_validatoria;
         %figure;imshow(capa)
         % Binarizo la imagen proyeccion
