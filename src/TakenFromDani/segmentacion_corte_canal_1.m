@@ -13,11 +13,7 @@ directory = strcat(nameFileSplitted{1}, '\segmentation\', nameFileSplitted{3}, '
 fichero=strcat(directory, '\segmentacion_ch_', num2str(canal+1),'-Cell_', num2str(numCell));
 load(fichero);
 
-proyb=proyeccionb;
-im=imagesOfSerieByChannel;
 Long=length(frames);
-proyb=proyeccionb;
-BWcelulas=masc_celulas;
 pl=imagesOfSerieByChannel(:, canal+1);
 recorte=rect;
 
