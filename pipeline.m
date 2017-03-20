@@ -62,7 +62,7 @@ function [] = pipeline( )
                     
                     %Create networks and get general network information
                     %about the relation between foci and heterochromatin
-                    getNetworkInfo(num2str(numCell));
+                    getNetworkInfo(directory, num2str(numCell));
                 end
             end
             close all
