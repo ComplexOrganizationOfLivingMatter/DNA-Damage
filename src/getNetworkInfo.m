@@ -26,6 +26,8 @@ function [ ] = getNetworkInfo(directory, numCell)
 
         adjacencyMatrix = getConnectedGraphWithMinimumDistances( distanceBetweenFoci, zeros(size(centroidsFoci, 1)));
         
+        paint3DNetworkFromAdjacencyMatrix(directory, adjacencyMatrix, centroidsFoci, numCell)
+        
         adjacencyMatrixTriu = triu(adjacencyMatrix, 1);
         adjacencyMatrixTriu(adjacencyMatrixTriu > 0) = 1;
         degreePerFoci = sum(adjacencyMatrixTriu, 2);
