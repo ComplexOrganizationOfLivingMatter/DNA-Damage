@@ -4,15 +4,9 @@ function [ adjacencyMatrix ] = getConnectedGraphWithMinimumDistances( distanceBe
 %
 %   Developed by Pablo Vicente-Munuera
 
-    connectedComps = graphconncomp(adjacencyMatrix, 'Directed', 'false');
-    if connectedComps == 1
-        return
-    end
-    contConnectedComps = connectedComps;
-
     distanceObjectsRemaining = squareform(distanceBetweenObjects);
     distanceObjectsRemaining(logical(eye(size(distanceObjectsRemaining)))) = intmax('int16');
-
+    connectedComps = 2;
     i = 1;
     while connectedComps > 1
         if i > size(adjacencyMatrix,1)
