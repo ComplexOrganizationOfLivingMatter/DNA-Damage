@@ -17,7 +17,7 @@ function [ adjacencyMatrix ] = getConnectedGraphWithMinimumDistances( distanceBe
         distanceObjectsRemaining(rowMin, colMin) = intmax('int32');
         distanceObjectsRemaining(colMin, rowMin) = intmax('int32');
         
-        connectedComps = graphconncomp(adjacencyMatrix, 'Directed', 'false');
+        connectedComps = graphconncomp(sparse(adjacencyMatrix), 'Directed', 'false');
         if connectedComps == 1
             return
         end
