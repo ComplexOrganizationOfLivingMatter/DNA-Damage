@@ -12,8 +12,7 @@ function [ centroids ] = meanOfPlanes( cellsInfo )
                 actualCentroid(cellPlane, :) = mean(cellFoundInPlane);
             end
         end
-        
-        centroids(numCellFound, :) = [mean(actualCentroid), mean(cellFound(:, 3))];
+        centroids(numCellFound, :) = [mean(actualCentroid, 1), mean(cellFound(:, 3))];
     end
 end
 
