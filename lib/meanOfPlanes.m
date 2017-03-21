@@ -7,7 +7,10 @@ function [ centroids ] = meanOfPlanes( cellsInfo )
         cellPlanes = unique(cellFound(:, 3));
         actualCentroid = zeros(length(cellPlanes), 2);
         for cellPlane = 1:length(cellPlanes)
-            actualCentroid(cellPlane, :) = mean(cellFound(cellFound(:, 3) == cellPlanes(cellPlane), 1:2));
+            cellFoundInPlane = cellFound(cellFound(:, 3) == cellPlanes(cellPlane), 1:2);
+            if ~isempty(cellFoundInPlane)
+                actualCentroid(cellPlane, :) = mean(cellFoundInPlane);
+            end
         end
         
         centroids(numCellFound, :) = [mean(actualCentroid), mean(cellFound(:, 3))];
