@@ -36,7 +36,7 @@ function [] = pipeline( )
         load(strcat(directory, '\recognizedCells.mat'));
         
         for numCell = 1:length(infoCells)
-            firstOuputFile = strcat(directory, '\', 'Cell_', num2str(numCell), '_', 'Proyeccion_General_3D_FOCI-VERDE-2.tiff');
+            firstOuputFile = strcat(directory, '\', 'Cell_', num2str(numCell), '_', '_networkInfo.mat');
             if exist(firstOuputFile, 'file') ~= 2
                 rect = infoCells{numCell, 1};
                 rect(rect<1) = 1;
