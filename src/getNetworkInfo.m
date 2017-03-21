@@ -7,10 +7,7 @@ function [ ] = getNetworkInfo(directory, numCell)
     
     [ centroidsFoci ] = meanOfPlanes( num_foci_verde_um );
     [ centroidsHeterochromatin ] = meanOfPlanes( num_hetero_um );
-    
-    distanceBetweenFoci = squareform(pdist(centroidsFoci));
-    
-    adjacencyMatrix = getConnectedGraphWithMinimumDistances( distanceBetweenFoci, zeros(size(centroidsFoci, 1)));
+
     
     distanceFociVsHeterochromatin = pdist2(centroidsFoci, centroidsHeterochromatin);
     fociToCompare = repmat(centroidsFoci(:, 3), 1, size(centroidsHeterochromatin, 1));
@@ -24,6 +21,10 @@ function [ ] = getNetworkInfo(directory, numCell)
     %otherwise
     distanceFociVsHeterochromatin = distanceFociVsHeterochromatin .* fociAboveHeterochromatin;
     
-    
+    if size(centroidsFoci, 1) > 1
+        distanceBetweenFoci = squareform(pdist(centroidsFoci));
+
+        adjacencyMatrix = getConnectedGraphWithMinimumDistances( distanceBetweenFoci, zeros(size(centroidsFoci, 1)));
+    end
 end
 
