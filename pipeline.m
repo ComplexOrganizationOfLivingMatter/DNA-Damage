@@ -27,10 +27,13 @@ function [] = pipeline( )
         
         if exist(strcat(directory, '\recognizedCells.mat'), 'file') ~= 2
             infoCells = recognizeEveryCellInTheSequence(fullPathImage, directory);
+            load(strcat(directory, '\recognizedCells.mat'));
         else
             load(strcat(directory, '\recognizedCells.mat'));
             infoCells = finalCells;
         end
+        
+        load(strcat(directory, '\recognizedCells.mat'));
         
         for numCell = 1:length(infoCells)
             firstOuputFile = strcat(directory, '\', 'Cell_', num2str(numCell), '_', 'Proyeccion_General_3D_FOCI-VERDE-2.tiff');
