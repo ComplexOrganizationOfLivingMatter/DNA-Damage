@@ -25,6 +25,9 @@ function [ ] = getNetworkInfo(directory, numCell)
         distanceBetweenFoci = squareform(pdist(centroidsFoci));
 
         adjacencyMatrix = getConnectedGraphWithMinimumDistances( distanceBetweenFoci, zeros(size(centroidsFoci, 1)));
+    else
+        adjacencyMatrix = [];
     end
+    save(strcat(directory, '\Cell_', numCell, '_networkInfo'), 'adjacencyMatrix', 'distanceFociVsHeterochromatin', 'distanceBetweenFoci', 'fociAboveHeterochromatin', 'centroidsFoci', 'centroidsHeterochromatin');
 end
 
