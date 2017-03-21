@@ -25,9 +25,22 @@ function [ ] = getNetworkInfo(directory, numCell)
         distanceBetweenFoci = squareform(pdist(centroidsFoci));
 
         adjacencyMatrix = getConnectedGraphWithMinimumDistances( distanceBetweenFoci, zeros(size(centroidsFoci, 1)));
+        
+        adjacencyMatrixTriu = triu(adjacencyMatrix, 1);
+        adjacencyMatrixTriu(adjacencyMatrixTriu > 0) = 1;
+        degreePerFoci = sum(adjacencyMatrixTriu, 2);
+        distanceHeterchromatinPerFociDegree = zeros(max(degreePerFoci), 1);
+        for numDegree = 1:max(degreePerFoci)
+            focisInTheDegree = degreePerFoci == numDegree;
+            if sum(focisInTheDegree) > 0
+                distanceHeterchromatinPerFociDegree(numDegree) = mean(mean(distanceFociVsHeterochromatin(focisInTheDegree, :)));
+            end
+        end
     else
         adjacencyMatrix = [];
+        distanceHeterchromatinPerFociDegree = [];
+        degreePerFoci = [];
     end
-    save(strcat(directory, '\Cell_', numCell, '_networkInfo'), 'adjacencyMatrix', 'distanceFociVsHeterochromatin', 'distanceBetweenFoci', 'fociAboveHeterochromatin', 'centroidsFoci', 'centroidsHeterochromatin');
+    save(strcat(directory, '\Cell_', numCell, '_networkInfo'), 'adjacencyMatrix', 'distanceFociVsHeterochromatin', 'distanceBetweenFoci', 'fociAboveHeterochromatin', 'centroidsFoci', 'centroidsHeterochromatin', 'distanceHeterchromatinPerFociDegree', 'degreePerFoci');
 end
 
