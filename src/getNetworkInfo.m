@@ -36,19 +36,23 @@ function [ ] = getNetworkInfo(directory, numCell)
         adjacencyMatrixTriu = triu(adjacencyMatrix, 1);
         adjacencyMatrixTriu(adjacencyMatrixTriu > 0) = 1;
         degreePerFoci = sum(adjacencyMatrixTriu, 2);
-        distanceHeterchromatinPerFociDegree = zeros(max(degreePerFoci), 1);
+        meanDistanceHeterchromatinPerFociDegree = zeros(max(degreePerFoci), 1);
+        meanMinDistanceHeterchromatinPerFociDegree = zeros(max(degreePerFoci), 1);
         for numDegree = 1:max(degreePerFoci)
             focisInTheDegree = degreePerFoci == numDegree;
             if sum(focisInTheDegree) > 0
-                distanceHeterchromatinPerFociDegree(numDegree) = mean(mean(distanceFociVsHeterochromatin(focisInTheDegree, :)));
+                meanDistanceHeterchromatinPerFociDegree(numDegree) = mean(mean(distanceFociVsHeterochromatin(focisInTheDegree, :)));
+                [minDistances indices] = min(abs(distanceFociVsHeterochromatin(focisInTheDegree, :)));
+                meanMinDistanceHeterchromatinPerFociDegree(numDegree) = mean();
             end
         end
     else
         distanceBetweenFoci = [];
         adjacencyMatrix = [];
-        distanceHeterchromatinPerFociDegree = mean(distanceFociVsHeterochromatin);
+        meanDistanceHeterchromatinPerFociDegree = mean(distanceFociVsHeterochromatin);
+        meanMinDistanceHeterchromatinPerFociDegree = min(distanceFociVsHeterochromatin);
         degreePerFoci = [];
     end
-    save(strcat(directory, '\Cell_', numCell, '_networkInfo'), 'adjacencyMatrix', 'distanceFociVsHeterochromatin', 'distanceBetweenFoci', 'fociAboveHeterochromatin', 'centroidsFoci', 'centroidsHeterochromatin', 'distanceHeterchromatinPerFociDegree', 'degreePerFoci');
+    save(strcat(directory, '\Cell_', numCell, '_networkInfo'), 'adjacencyMatrix', 'distanceFociVsHeterochromatin', 'distanceBetweenFoci', 'fociAboveHeterochromatin', 'centroidsFoci', 'centroidsHeterochromatin', 'meanDistanceHeterchromatinPerFociDegree', 'meanMinDistanceHeterchromatinPerFociDegree', 'degreePerFoci');
 end
 
