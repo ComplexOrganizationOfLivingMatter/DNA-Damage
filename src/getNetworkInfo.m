@@ -37,8 +37,9 @@ function [ ] = getNetworkInfo(directory, numCell)
             end
         end
     else
+        distanceBetweenFoci = [];
         adjacencyMatrix = [];
-        distanceHeterchromatinPerFociDegree = [];
+        distanceHeterchromatinPerFociDegree = mean(distanceFociVsHeterochromatin);
         degreePerFoci = [];
     end
     save(strcat(directory, '\Cell_', numCell, '_networkInfo'), 'adjacencyMatrix', 'distanceFociVsHeterochromatin', 'distanceBetweenFoci', 'fociAboveHeterochromatin', 'centroidsFoci', 'centroidsHeterochromatin', 'distanceHeterchromatinPerFociDegree', 'degreePerFoci');
