@@ -19,6 +19,7 @@ function [ ] = getNetworkInfo(directory, numCell)
     heterochromatinToCompare = repmat(centroidsHeterochromatin(:, 3), 1, size(centroidsFoci, 1));
     
     fociAboveHeterochromatin = fociToCompare > heterochromatinToCompare';
+    fociAboveHeterochromatin = double(fociAboveHeterochromatin);
     fociAboveHeterochromatin(fociAboveHeterochromatin == 0) = -1;
     
     %We also take into accout if the focis is above or below
@@ -41,9 +42,10 @@ function [ ] = getNetworkInfo(directory, numCell)
         for numDegree = 1:max(degreePerFoci)
             focisInTheDegree = degreePerFoci == numDegree;
             if sum(focisInTheDegree) > 0
-                meanDistanceHeterchromatinPerFociDegree(numDegree) = mean(mean(distanceFociVsHeterochromatin(focisInTheDegree, :)));
-                [minDistances indices] = min(abs(distanceFociVsHeterochromatin(focisInTheDegree, :)));
-                meanMinDistanceHeterchromatinPerFociDegree(numDegree) = mean();
+                distanceActual = distanceFociVsHeterochromatin(focisInTheDegree, :);
+                meanDistanceHeterchromatinPerFociDegree(numDegree) = mean(mean(distanceActual, 2));
+                [~, indices] = min(abs(distanceActual), [], 2);
+                meanMinDistanceHeterchromatinPerFociDegree(numDegree) = mean(arrayfun(@(x, y) distanceActual(x, y), 1:size(distanceActual, 1), indices'));
             end
         end
     else
