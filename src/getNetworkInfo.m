@@ -52,7 +52,8 @@ function [ ] = getNetworkInfo(directory, numCell)
         distanceBetweenFoci = [];
         adjacencyMatrix = [];
         meanDistanceHeterchromatinPerFociDegree = mean(distanceFociVsHeterochromatin);
-        meanMinDistanceHeterchromatinPerFociDegree = min(distanceFociVsHeterochromatin);
+        [~, index] = min(abs(distanceFociVsHeterochromatin), [], 2);
+        meanMinDistanceHeterchromatinPerFociDegree = distanceFociVsHeterochromatin(index);
         degreePerFoci = [];
     end
     save(strcat(directory, '\Cell_', numCell, '_networkInfo'), 'adjacencyMatrix', 'distanceFociVsHeterochromatin', 'distanceBetweenFoci', 'fociAboveHeterochromatin', 'centroidsFoci', 'centroidsHeterochromatin', 'meanDistanceHeterchromatinPerFociDegree', 'meanMinDistanceHeterchromatinPerFociDegree', 'degreePerFoci');
