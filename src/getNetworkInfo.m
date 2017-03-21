@@ -3,9 +3,14 @@ function [ ] = getNetworkInfo(directory, numCell)
 %   Detailed explanation goes here
 %
 %   Developed by Pablo Vicente-Munuera
+
+    infoCell = importdata(strcat(directory, '\Cell_', numCell, '_results.mat'));
+    centroidsFoci = infoCell.Datos{1,1};
+    centroidsFoci = vertcat(centroidsFoci{:, 2});
+    clear infoCell;
+
     load(strcat(directory, '\Cell_', numCell, '_MappingInfoHeterochromatinAndFoci'));
     
-    [ centroidsFoci ] = meanOfPlanes( num_foci_verde_um );
     [ centroidsHeterochromatin ] = meanOfPlanes( num_hetero_um );
 
     
