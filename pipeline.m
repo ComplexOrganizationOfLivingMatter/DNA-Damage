@@ -100,8 +100,15 @@ function [] = pipeline( )
         end
     end
     save('results\segmentation\characteristicsOfNetworks', 'networkTableInfo', 'networkTableOtherInfo');
-    writetable(networkTableInfo, 'results\segmentation\characteristicsOfNetworks.csv');
-    distanceHeterochromatinPerFociDegree = horzcat(padcat(networkTableOtherInfo{:, 1})', padcat(networkTableOtherInfo{:, 2})');
-    csvwrite('results\segmentation\distanceHeterochromatinPerFociDegree.csv', distanceHeterochromatinPerFociDegree);
+    
+    meanDistanceHeterchromatinPerFociDegree = padcat(networkTableOtherInfo{:, 1})';
+    meanMinDistanceHeterchromatinPerFociDegree = padcat(networkTableOtherInfo{:, 2})';
+    distanceHeterochromatinPerFociDegree = horzcat(meanDistanceHeterchromatinPerFociDegree, meanMinDistanceHeterchromatinPerFociDegree);
+    distanceHeterochromatinPerFociDegreeDS = mat2dataset(distanceHeterochromatinPerFociDegree);
+    distanceHeterochromatinPerFociDegreeDS.Properties.VarNames(1:size(meanDistanceHeterchromatinPerFociDegree, 2)) = cellfun(@(x) strcat('mean', x), distanceHeterochromatinPerFociDegreeDS.Properties.VarNames(1:size(meanDistanceHeterchromatinPerFociDegree, 2)), 'UniformOutput', false);
+    distanceHeterochromatinPerFociDegreeDS.Properties.VarNames(size(meanDistanceHeterchromatinPerFociDegree, 2)+1 : size(meanDistanceHeterchromatinPerFociDegree, 2)+size(meanMinDistanceHeterchromatinPerFociDegree, 2)) = cellfun(@(x) strcat('meanMin', x), distanceHeterochromatinPerFociDegreeDS.Properties.VarNames(size(meanDistanceHeterchromatinPerFociDegree, 2)+1 : size(meanDistanceHeterchromatinPerFociDegree, 2)+size(meanMinDistanceHeterchromatinPerFociDegree, 2)), 'UniformOutput', false);
+    
+    writetable(horzcat(networkTableInfo, dataset2table(distanceHeterochromatinPerFociDegreeDS)), 'results\segmentation\characteristicsOfNetworks.csv');
+    writetable(horzcat(networkTableInfo, dataset2table(distanceHeterochromatinPerFociDegreeDS)), 'results\segmentation\characteristicsOfNetworks.xls');
 end
 
