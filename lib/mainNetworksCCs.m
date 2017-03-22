@@ -15,10 +15,10 @@ mean_strengths=mean(strengths);
 std_strengths=std(strengths);
 
 %% Resistence measurements
-assortativity_cc=assortativity(weigth_graph,0); %possitive value indicates nodes tend to joir to others with similiar degree
+assortativity_cc=assortativity(weigth_graph,0); %possitive value indicates nodes tend to join to others with similiar degree
 density=density_und(weigth_graph);%Fraction of products of degrees across all edges
 %% Segregation measurements
-Coef_cluster=clustering_coef_wu(weigth_graph);  %the fraction of node�s neighbors that are neighbors of each other
+Coef_cluster=clustering_coef_wu(weigth_graph);  %the fraction of nodes neighbors that are neighbors of each other
 mean_coef_cluster=mean(Coef_cluster);
 std_coef_cluster=std(Coef_cluster);
 
