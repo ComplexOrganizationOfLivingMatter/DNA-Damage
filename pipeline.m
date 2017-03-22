@@ -71,5 +71,37 @@ function [] = pipeline( )
             close all
         end
     end
+    
+    resultFiles = getAllFiles('results\segmentation\');
+    networkTableInfo = [];
+    networkTableOtherInfo = {};
+    for numFile = 1:size(resultFiles, 1)
+        fullPathFile = resultFiles{numFile};
+        if ~isempty(strfind(resultFiles{numFile}, 'networkInfo.mat')) && isempty(strfind(resultFiles{numFile}, 'C_30min'))
+            fullPathFile
+            nameFileSplitted = strsplit(fullPathFile, '\');
+            
+            numCell = strsplit(nameFileSplitted{end}, '_');
+            numCell = numCell{2};
+            
+            classOfCell = nameFileSplitted{3};
+            
+            serieOfCell = nameFileSplitted{4};
+            
+            load(fullPathFile);
+            if ~isempty(adjacencyMatrix)
+                if isempty(networkTableInfo)
+                    networkTableInfo = mainNetworksCCs(numCell, classOfCell, serieOfCell, distanceBetweenFoci, adjacencyMatrix);
+                else
+                    networkTableInfo(end+1, :) = mainNetworksCCs(numCell, classOfCell, serieOfCell, distanceBetweenFoci, adjacencyMatrix);
+                end
+                networkTableOtherInfo(end+1, :) = {meanDistanceHeterchromatinPerFociDegree, meanMinDistanceHeterchromatinPerFociDegree};
+            end
+        end
+    end
+    save('results\segmentation\characteristicsOfNetworks', 'networkTableInfo', 'networkTableOtherInfo');
+    writetable(networkTableInfo, 'results\segmentation\characteristicsOfNetworks.csv');
+    distanceHeterochromatinPerFociDegree = horzcat(padcat(networkTableOtherInfo{:, 1})', padcat(networkTableOtherInfo{:, 2})');
+    csvwrite('results\segmentation\distanceHeterochromatinPerFociDegree.csv', distanceHeterochromatinPerFociDegree);
 end
 
