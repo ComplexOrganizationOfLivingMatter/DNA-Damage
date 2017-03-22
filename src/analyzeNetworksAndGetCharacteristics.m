@@ -41,6 +41,5 @@ function [ ] = analyzeNetworksAndGetCharacteristics()
     
     writetable(horzcat(networkTableInfo, dataset2table(distanceHeterochromatinPerFociDegreeDS)), 'results\segmentation\characteristicsOfNetworks.csv');
     writetable(horzcat(networkTableInfo, dataset2table(distanceHeterochromatinPerFociDegreeDS)), 'results\segmentation\characteristicsOfNetworks.xls');
-
 end
 

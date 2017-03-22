@@ -6,9 +6,9 @@ function [] = pipelineRecognitionOfCells( )
     
 
     cd 'D:\Pablo\DNA-Damage\'
-    %extractImages();
+    extractImages();
     
-    %recognitionAndProcessAllSequences();
+    recognitionAndProcessAllSequences();
     
     analyzeNetworksAndGetCharacteristics();
 end
