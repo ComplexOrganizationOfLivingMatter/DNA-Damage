@@ -34,9 +34,9 @@ function [ ] = getNetworkInfo(directory, numCell)
         
         paint3DNetworkFromAdjacencyMatrix(adjacencyMatrix, centroidsFoci, numCell, directory)
         
-        adjacencyMatrixTriu = triu(adjacencyMatrix, 1);
-        adjacencyMatrixTriu(adjacencyMatrixTriu > 0) = 1;
-        degreePerFoci = sum(adjacencyMatrixTriu, 2);
+        adjacencyMatrixNoWeights = adjacencyMatrix;
+        adjacencyMatrixNoWeights(adjacencyMatrixNoWeights > 0) = 1;
+        degreePerFoci = sum(adjacencyMatrixNoWeights, 2);
         meanDistanceHeterchromatinPerFociDegree = zeros(max(degreePerFoci), 1);
         meanMinDistanceHeterchromatinPerFociDegree = zeros(max(degreePerFoci), 1);
         for numDegree = 1:max(degreePerFoci)
