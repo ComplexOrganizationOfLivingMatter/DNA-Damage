@@ -1,4 +1,4 @@
-function [mean_n_connections_per_node, std_n_connections_per_node, mean_strengths,std_strengths, assortativity_cc, density, mean_coef_cluster, std_coef_cluster, transitivity, mean_optime_structure, std_optime_structure,maximated_modularity,lambda,efficiency,mean_eccentricity,std_eccentricity,radius,diameter, mean_BC,std_BC,meanAllShortestPath,stdAllShortestPath] = mainNetworksCCs(distanceMatrix, adjacencyMatrix)
+function [networkTableInfo] = mainNetworksCCs(numCell, classOfCell, serieOfCell, distanceMatrix, adjacencyMatrix)
 %
 %
 %	Developed by Daniel Sanchez-Gutierrez improved by Pedro Gomez-Galvez
@@ -49,3 +49,8 @@ shortestPathDist = graphallshortestpaths(sparse(weigth_graph), 'Directed', false
 auxAllShortestPath=shortestPathDist.*(triu(shortestPathDist)~=0);
 meanAllShortestPath=mean(auxAllShortestPath(auxAllShortestPath~=0));
 stdAllShortestPath=std(auxAllShortestPath(auxAllShortestPath~=0));
+
+networkTableInfo = table(str2num(numCell), {classOfCell}, {serieOfCell}, mean_n_connections_per_node, std_n_connections_per_node, mean_strengths,std_strengths, assortativity_cc, density, mean_coef_cluster, std_coef_cluster, transitivity, mean_optime_structure, std_optime_structure,maximated_modularity,lambda,efficiency,mean_eccentricity,std_eccentricity,radius,diameter, mean_BC,std_BC,meanAllShortestPath,stdAllShortestPath);
+networkTableInfo.Properties.VariableNames{1} = 'numCell';
+networkTableInfo.Properties.VariableNames{2} = 'classOfCell';
+networkTableInfo.Properties.VariableNames{3} = 'serieOfCell';
