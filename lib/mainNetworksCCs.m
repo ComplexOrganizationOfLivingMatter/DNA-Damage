@@ -1,9 +1,9 @@
-﻿function [mean_n_connections_per_node, std_n_connections_per_node, mean_strengths,std_strengths, assortativity_cc, density, mean_coef_cluster, std_coef_cluster, transitivity, mean_optime_structure, std_optime_structure,maximated_modularity,lambda,efficiency,mean_eccentricity,std_eccentricity,radius,diameter, mean_BC,std_BC,meanAllShortestPath,stdAllShortestPath] = mainNetworkCcs(weigth_graph,adjacencyMatrix)
+function [mean_n_connections_per_node, std_n_connections_per_node, mean_strengths,std_strengths, assortativity_cc, density, mean_coef_cluster, std_coef_cluster, transitivity, mean_optime_structure, std_optime_structure,maximated_modularity,lambda,efficiency,mean_eccentricity,std_eccentricity,radius,diameter, mean_BC,std_BC,meanAllShortestPath,stdAllShortestPath] = mainNetworksCCs(distanceMatrix, adjacencyMatrix)
 %
 %
 %	Developed by Daniel Sanchez-Gutierrez improved by Pedro Gomez-Galvez
 
-
+weigth_graph = distanceMatrix .* adjacencyMatrix;
 
 %% Basic measurements
 n_connections_per_node=degrees_und(adjacencyMatrix);%% number of connections of each node
