@@ -11,8 +11,9 @@ function [ ] = getNetworkInfo(directory, numCell)
 
     load(strcat(directory, '\Cell_', numCell, '_MappingInfoHeterochromatinAndFoci'));
     
-    [ centroidsHeterochromatin ] = meanOfPlanes( num_hetero_um );
-
+    %[ centroidsHeterochromatin ] = meanOfPlanes( num_hetero_um );
+    %Using all the pixels instead of the centroid of the heterochromatin
+    centroidsHeterochromatin = vertcat(num_hetero_um{:});
     
     distanceFociVsHeterochromatin = pdist2(centroidsFoci, centroidsHeterochromatin);
     fociToCompare = repmat(centroidsFoci(:, 3), 1, size(centroidsHeterochromatin, 1));
