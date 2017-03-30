@@ -56,10 +56,7 @@ function [ ] = recognitionAndProcessAllSequences( )
                     Diapositiva=Representacion_Heterocromatina(fullPathImage, num2str(numCell), rect, Diapositiva, frames);
 
                     Compro_foci_hetero(fullPathImage, num2str(numCell), rect, Diapositiva, frames);
-                    
-                    %Create networks and get general network information
-                    %about the relation between foci and heterochromatin
-                    getNetworkInfo(directory, num2str(numCell));
+                   
                 end
             end
             close all
