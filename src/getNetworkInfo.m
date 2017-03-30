@@ -11,7 +11,7 @@ function [ ] = getNetworkInfo(directory, numCell)
 
     load(strcat(directory, '\Cell_', numCell, '_MappingInfoHeterochromatinAndFoci'));
     
-    fociClusters = cell(length(num_hetero_um), 2);
+    fociClusters = cell(length(num_hetero_um), 3);
     
     for numCentroidFoci = 1:size(centroidsFoci, 1)
         centroidFoci = centroidsFoci(numCentroidFoci, :);
@@ -27,6 +27,7 @@ function [ ] = getNetworkInfo(directory, numCell)
         end
         fociClusters{minCluster, 1}(end+1, :) = centroidFoci;
         fociClusters{minCluster, 2}(end+1, :) = minDistance;
+        fociClusters{minCluster, 3}(end+1, :) = mean(cellfun(@(x) min(pdist2(centroidFoci, x)), num_hetero_um));
     end
     %[ centroidsHeterochromatin ] = meanOfPlanes( num_hetero_um );
     %Using all the pixels instead of the centroid of the heterochromatin
