@@ -52,21 +52,12 @@ function [ ] = analyzeNetworksAndGetCharacteristics()
     IR_MinDistancesOfFociToHeterocrhomatin = horzcat(allMinDistacesOfFociToHeterochromatin{1, :});
     VP16_MinDistancesOfFociToHeterocrhomatin = horzcat(allMinDistacesOfFociToHeterochromatin{2, :});
     
-    paintHistogramOfMeansPerNuclei(allMinDistacesOfFociToHeterochromatin);
+    [hTTestMinPerNuclei, pValueTTestMinPerNuclei] = paintHistogramOfMeansPerNuclei(allMinDistacesOfFociToHeterochromatin, 'minDistanceToHeterochromatin', 12, [0,3]);
+    [hTTestMeanPerNuclei, pValueTTestMeanPerNuclei]  = paintHistogramOfMeansPerNuclei(allMeanDistacesOfFociToHeterochromatin, 'meanDistanceToHeterochromatin', 12, [0, 10]);
     
-    paintHistogramOfMeansPerNuclei(allMeanDistacesOfFociToHeterochromatin);
-    
-%     [h, p] = ttest2(IR_MinDistancesOfFociToHeterocrhomatin, VP16_MinDistancesOfFociToHeterocrhomatin, 'Vartype','unequal')
-%     
-%     IR_MeanDistancesOfFociToHeterocrhomatin = horzcat(allMeanDistacesOfFociToHeterochromatin{1, :});
-%     VP16_MeanDistancesOfFociToHeterocrhomatin = horzcat(allMeanDistacesOfFociToHeterochromatin{2, :});
-%     
-%     [h, p] = ttest2(IR_MeanDistancesOfFociToHeterocrhomatin, VP16_MeanDistancesOfFociToHeterocrhomatin, 'Vartype','unequal')
-% 
-%     meanListDistributionIR = mean(listDistributionIR);
-%     stdeviationIR = std(listDistributionIR);
-%     standarderrorIR = stdeviationIR ./ sqrt(12);
-%     
+    IR_MeanDistancesOfFociToHeterocrhomatin = horzcat(allMeanDistacesOfFociToHeterochromatin{1, :});
+    VP16_MeanDistancesOfFociToHeterocrhomatin = horzcat(allMeanDistacesOfFociToHeterochromatin{2, :});
+ 
 %     figure; histogram(horzcat(allMinDistacesOfFociToHeterochromatin{1, :}), 24,'BinLimits',[0,3],'Normalization','probability')
 %     hold on;
 %     histogram(horzcat(allMinDistacesOfFociToHeterochromatin{2, :}),  24,'BinLimits',[0,3],'Normalization','probability')
