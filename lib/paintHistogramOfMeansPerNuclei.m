@@ -25,10 +25,11 @@ function [ hTTestPerNuclei, pValueTTestPerNuclei ] = paintHistogramOfMeansPerNuc
     errorbar([0.85:numberOfBars-0.15; 1.15:numberOfBars+0.15]', [meanListDistributionVP16', meanListDistributionIR'], [standarderrorVP16', standarderrorIR'],'r.')
     legend('VP16', 'IR');
     ylabel('Percentage of foci');
-    xlabel('Min distance to the closest heterochromatin')
     if isequal(binLimits, [0,3])
+        xlabel('Min distance to the closest heterochromatin')
         set(gca, 'XTick', 1:numberOfBars, 'XTickLabel', {'0 - 0.25'; '0.25 - 0.5'; '0.5 - 0.75'; '0.75 - 1'; '1 - 1.25'; '1.25 - 1.5'; '1.5 - 1.75'; '1.75 - 2'; '2 - 2.25'; '2.25 - 2.5'; '2.5 - 2.75'; '2.75 - 3'});
     else
+        xlabel('Mean distance to the closest heterochromatin')
         set(gca, 'XTick', 1:numberOfBars, 'XTickLabel', {'0 - 0.83'; '0.83 - 1.67'; '1.67 - 2.5'; '2.5 - 3.33'; '3.33 - 4.17'; '4.17 - 5'; '5 - 5.83'; '5.83 - 6.67'; '6.67 - 7.5'; '7.5 - 8.3'; '8.3 - 9.17'; '9.17 - 10'});
     end
     p = ylim;
