@@ -75,6 +75,7 @@ function [ ] = getNetworkInfo(directory, numCell)
         meanMinDistanceHeterchromatinPerFociDegree = distanceFociVsHeterochromatin(index);
         degreePerFoci = [];
     end
+    close all
     save(strcat(directory, '\Cell_', numCell, '_networkInfo'), 'adjacencyMatrix', 'distanceFociVsHeterochromatin', 'distanceBetweenFoci', 'fociAboveHeterochromatin', 'centroidsFoci', 'centroidsHeterochromatin', 'meanDistanceHeterchromatinPerFociDegree', 'meanMinDistanceHeterchromatinPerFociDegree', 'degreePerFoci', 'fociClusters');
 end
 
