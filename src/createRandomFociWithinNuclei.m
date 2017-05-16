@@ -42,14 +42,15 @@ function [  ] = createRandomFociWithinNuclei(maxRandomization)
         %We already have all the info we need
         %Do the randomization
         randomizationsCentroids = cell(maxRandomization, 1);
-        for numRandom = 1:maxRandomization
+        parfor numRandom = 1:maxRandomization
             randomCentroids = zeros(totalFoci, 3);
+            tempPixelArea = finalPixelArea;
             for numFoci = 1:totalFoci
                 %Pseudorandomly select a point within the possible area
-                pickedRandomCentroid = randi(size(finalPixelArea, 1));
-                randomCentroids(numFoci, :) = finalPixelArea(pickedRandomCentroid, :);
+                pickedRandomCentroid = randi(size(tempPixelArea, 1));
+                randomCentroids(numFoci, :) = tempPixelArea(pickedRandomCentroid, :);
                 %Remove also the possible pixels of the same Z
-                finalPixelArea(ismember(finalPixelArea(:, 1:2), randomCentroids(numFoci, 1:2), 'rows'), :) = [];
+                tempPixelArea(ismember(tempPixelArea(:, 1:2), randomCentroids(numFoci, 1:2), 'rows'), :) = [];
             end
             randomizationsCentroids(numRandom) = {randomCentroids};
         end
