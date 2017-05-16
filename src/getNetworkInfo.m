@@ -1,4 +1,4 @@
-function [ ] = getNetworkInfo(directory, numCell, ~)
+function [ ] = getNetworkInfo(directory, numCell)
 %GETNETWORKINFO Summary of this function goes here
 %   Detailed explanation goes here
 %
@@ -25,6 +25,8 @@ function [ ] = getNetworkInfo(directory, numCell, ~)
     num_hetero = getAllThePixelsFromBorder(num_hetero);
     
     num_hetero_um = getUmFromPixels(num_hetero, rect);
+    
+    save(strcat(directory, '\Cell_', numCell, '_PixelsPerCell'), 'num_hetero', 'num_hetero_um');
     
     for numCentroidFoci = 1:size(centroidsFoci, 1)
         centroidFoci = centroidsFoci(numCentroidFoci, :);
