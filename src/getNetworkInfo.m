@@ -1,4 +1,4 @@
-function [ ] = getNetworkInfo(directory, numCell, frames)
+function [ ] = getNetworkInfo(directory, numCell, ~)
 %GETNETWORKINFO Summary of this function goes here
 %   Detailed explanation goes here
 %
@@ -11,12 +11,20 @@ function [ ] = getNetworkInfo(directory, numCell, frames)
     clear infoCell;
 
     load(strcat(directory, '\Cell_', numCell, '_MappingInfoHeterochromatinAndFoci'));
-    
+    load(strcat(directory, '\recognizedCells.mat'));
+    rect = finalCells{str2num(numCell), 1};
+    rect(rect<1) = 1;
+    if rect(1) + rect(3) >= size(imgBinaryNoSmallCells, 1)
+        rect(3) = size(imgBinaryNoSmallCells, 1) - 1 - rect(1);
+    end
+    if rect(2) + rect(4) >= size(imgBinaryNoSmallCells, 2)
+        rect(4) = size(imgBinaryNoSmallCells, 2) - 1 - rect(2);
+    end
     fociClusters = cell(length(num_hetero_um), 3);
     
     num_hetero = getAllThePixelsFromBorder(num_hetero);
     
-    num_hetero_um = getUmFromPixels(num_hetero);
+    num_hetero_um = getUmFromPixels(num_hetero, rect);
     
     for numCentroidFoci = 1:size(centroidsFoci, 1)
         centroidFoci = centroidsFoci(numCentroidFoci, :);
