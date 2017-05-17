@@ -24,17 +24,23 @@ function [ ] = analyzeRandomFoci( )
             rect(4) = size(imgBinaryNoSmallCells, 2) - 1 - rect(2);
         end
 
-        getUmFromPixels(randomCentroids, rect);
+        load(fullPathFile);
+        
+        for numRandom = 1:size(randomizationsCentroids, 1)
+            randomCentroids = randomizationsCentroids{numRandom};
+            randomCentroids = [randomCentroids(:, 2), randomCentroids(:, 1), randomCentroids(:, 3)];
+            randomCentroids = getUmFromPixels({randomCentroids}, rect);
 
-        [ fociClusters ] = createFociClustersOfHeterochromatin( randomCentroids, num_hetero_um);
+            [ fociClusters ] = createFociClustersOfHeterochromatin( randomCentroids, num_hetero_um);
 
-            if ~isempty(strfind(resultFiles{numFile}, 'IR_30min'))
-                allMinDistacesOfFociToHeterochromatin{1, end+1} = vertcat(fociClusters{:, 2})';
-                allMeanDistacesOfFociToHeterochromatin{1, end+1} = vertcat(fociClusters{:, 3})';
-            else
-                allMinDistacesOfFociToHeterochromatin{2, end+1} = vertcat(fociClusters{:, 2})';
-                allMeanDistacesOfFociToHeterochromatin{2, end+1} = vertcat(fociClusters{:, 3})';
-            end
+                if ~isempty(strfind(resultFiles{numFile}, 'IR_30min'))
+                    allMinDistacesOfFociToHeterochromatin{1, end+1} = vertcat(fociClusters{:, 2})';
+                    allMeanDistacesOfFociToHeterochromatin{1, end+1} = vertcat(fociClusters{:, 3})';
+                else
+                    allMinDistacesOfFociToHeterochromatin{2, end+1} = vertcat(fociClusters{:, 2})';
+                    allMeanDistacesOfFociToHeterochromatin{2, end+1} = vertcat(fociClusters{:, 3})';
+                end
+        end
             
     end
     
