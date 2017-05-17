@@ -34,7 +34,7 @@ function [ hTTestPerNuclei, pValueTTestPerNuclei ] = paintHistogramOfMeansPerNuc
     end
     p = ylim;
     set(gca, 'ylim', [0 p(2)])
-    export_fig(figMin, strcat('results/', outputFile), '-pdf');
+    export_fig(figMin, strcat('results/', outputFile, '_', date), '-pdf');
     
     
     irPerNuclei = vertcat(allDistacesFromFociToHeterochromatin(1, :))';
