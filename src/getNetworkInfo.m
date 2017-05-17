@@ -20,7 +20,7 @@ function [ ] = getNetworkInfo(directory, numCell)
     if rect(2) + rect(4) >= size(imgBinaryNoSmallCells, 2)
         rect(4) = size(imgBinaryNoSmallCells, 2) - 1 - rect(2);
     end
-    fociClusters = cell(length(num_hetero_um), 3);
+    
     
     num_hetero = getAllThePixelsFromBorder(num_hetero);
     
@@ -28,22 +28,8 @@ function [ ] = getNetworkInfo(directory, numCell)
     
     save(strcat(directory, '\Cell_', numCell, '_PixelsPerCell'), 'num_hetero', 'num_hetero_um');
     
-    for numCentroidFoci = 1:size(centroidsFoci, 1)
-        centroidFoci = centroidsFoci(numCentroidFoci, :);
-        minDistance = intmax('int16');
-       	minCluster = 0;
-        for clusterHeterochromatin = 1:size(fociClusters, 1)
-            distances = pdist2(centroidFoci, num_hetero_um{clusterHeterochromatin});
-            actualDistance = min(abs(distances), [], 2);
-            if minDistance > actualDistance
-                minDistance = actualDistance;
-                minCluster = clusterHeterochromatin;
-            end
-        end
-        fociClusters{minCluster, 1}(end+1, :) = centroidFoci;
-        fociClusters{minCluster, 2}(end+1, :) = minDistance;
-        fociClusters{minCluster, 3}(end+1, :) = mean(cellfun(@(x) min(pdist2(centroidFoci, x)), num_hetero_um));
-    end
+    [ fociClusters ] = createFociClustersOfHeterochromatin( centroidsFoci, num_hetero_um);
+    
     %[ centroidsHeterochromatin ] = meanOfPlanes( num_hetero_um );
     %Using all the pixels instead of the centroid of the heterochromatin
     centroidsHeterochromatin = vertcat(num_hetero_um{:});
