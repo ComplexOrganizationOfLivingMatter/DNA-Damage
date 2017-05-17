@@ -4,6 +4,9 @@ function [ ] = analyzeRandomFoci( )
 
     randomFiles = getAllFiles('D:\Pablo\DNA-Damage\results\randomization');
     
+    allMinDistacesOfFociToHeterochromatin = {};
+    allMeanDistacesOfFociToHeterochromatin = {};
+    
     for numRandomFile = 1:size(randomFiles, 1)
         fullPathFile = randomFiles{numRandomFile};
         directory = strrep(fullPathFile, 'randomization', 'segmentation');
@@ -24,22 +27,26 @@ function [ ] = analyzeRandomFoci( )
             rect(4) = size(imgBinaryNoSmallCells, 2) - 1 - rect(2);
         end
 
+        %Load randomizations
         load(fullPathFile);
+        
+        %Load heterochromatin info
+        load(strcat(directory, '\Cell_', numCell, '_PixelsPerCell.mat'));
         
         for numRandom = 1:size(randomizationsCentroids, 1)
             randomCentroids = randomizationsCentroids{numRandom};
             randomCentroids = [randomCentroids(:, 2), randomCentroids(:, 1), randomCentroids(:, 3)];
             randomCentroids = getUmFromPixels({randomCentroids}, rect);
 
-            [ fociClusters ] = createFociClustersOfHeterochromatin( randomCentroids, num_hetero_um);
+            [ fociClusters ] = createFociClustersOfHeterochromatin( vertcat(randomCentroids{:}), num_hetero_um);
 
-                if ~isempty(strfind(resultFiles{numFile}, 'IR_30min'))
-                    allMinDistacesOfFociToHeterochromatin{1, end+1} = vertcat(fociClusters{:, 2})';
-                    allMeanDistacesOfFociToHeterochromatin{1, end+1} = vertcat(fociClusters{:, 3})';
-                else
-                    allMinDistacesOfFociToHeterochromatin{2, end+1} = vertcat(fociClusters{:, 2})';
-                    allMeanDistacesOfFociToHeterochromatin{2, end+1} = vertcat(fociClusters{:, 3})';
-                end
+            if ~isempty(strfind(fullPathFile, 'IR_30min'))
+                allMinDistacesOfFociToHeterochromatin{1, end+1} = vertcat(fociClusters{:, 2})';
+                allMeanDistacesOfFociToHeterochromatin{1, end+1} = vertcat(fociClusters{:, 3})';
+            else
+                allMinDistacesOfFociToHeterochromatin{2, end+1} = vertcat(fociClusters{:, 2})';
+                allMeanDistacesOfFociToHeterochromatin{2, end+1} = vertcat(fociClusters{:, 3})';
+            end
         end
             
     end
