@@ -1,29 +1,29 @@
-function [ hTTestPerNuclei, pValueTTestPerNuclei ] = paintHistogramOfMeansPerNuclei( allDistacesFromFociToHeterochromatin, outputFile, numberOfBars, binLimits )
+function [ hTTestPerNuclei, pValueTTestPerNuclei ] = paintHistogramOfMeansPerNuclei( allDistacesFromFociToHeterochromatin, outputFile, numberOfBars, binLimits, nameFirstRow, nameSecondRow )
 %PAINTHISTOGRAMOFMEANSPERNUCLEI Summary of this function goes here
 %   Detailed explanation goes here
 
     emptyCells = cellfun(@(x) ~isempty(x), allDistacesFromFociToHeterochromatin);
-    frequenciesIR = cellfun(@(x) histcounts(x, numberOfBars, 'BinLimits', binLimits), allDistacesFromFociToHeterochromatin(1, emptyCells(1, :)), 'UniformOutput', false);
-    frequenciesVP16 = cellfun(@(x) histcounts(x, numberOfBars, 'BinLimits', binLimits), allDistacesFromFociToHeterochromatin(2, emptyCells(2, :)), 'UniformOutput', false);
+    frequenciesRow2 = cellfun(@(x) histcounts(x, numberOfBars, 'BinLimits', binLimits), allDistacesFromFociToHeterochromatin(1, emptyCells(1, :)), 'UniformOutput', false);
+    frequenciesRow1 = cellfun(@(x) histcounts(x, numberOfBars, 'BinLimits', binLimits), allDistacesFromFociToHeterochromatin(2, emptyCells(2, :)), 'UniformOutput', false);
     
-    listDistributionIR = cellfun(@(x) x/sum(x), frequenciesIR, 'UniformOutput', false);
-    listDistributionVP16 = cellfun(@(x) x/sum(x), frequenciesVP16, 'UniformOutput', false);
+    listDistributionRow2 = cellfun(@(x) x/sum(x), frequenciesRow2, 'UniformOutput', false);
+    listDistributionRow1 = cellfun(@(x) x/sum(x), frequenciesRow1, 'UniformOutput', false);
     
-    meanListDistributionIR = mean(vertcat(listDistributionIR{:}));
-    meanListDistributionVP16 = mean(vertcat(listDistributionVP16{:}));
-    stdeviationVP16 = std(vertcat(listDistributionVP16{:}));
-    stdeviationIR = std(vertcat(listDistributionIR{:}));
-    standarderrorIR = stdeviationIR ./ sqrt(length(vertcat(listDistributionIR{:})));
-    standarderrorIR(isnan(standarderrorIR)) = 0;
-    standarderrorVP16 = stdeviationVP16 ./ sqrt(length(vertcat(listDistributionVP16{:})));
-    standarderrorVP16(isnan(standarderrorVP16)) = 0;
+    meanListDistributionRow2 = mean(vertcat(listDistributionRow2{:}));
+    meanListDistributionRow1 = mean(vertcat(listDistributionRow1{:}));
+    stdeviationRow1 = std(vertcat(listDistributionRow1{:}));
+    stdeviationRow2 = std(vertcat(listDistributionRow2{:}));
+    standarderrorRow2 = stdeviationRow2 ./ sqrt(length(vertcat(listDistributionRow2{:})));
+    standarderrorRow2(isnan(standarderrorRow2)) = 0;
+    standarderrorRow1 = stdeviationRow1 ./ sqrt(length(vertcat(listDistributionRow1{:})));
+    standarderrorRow1(isnan(standarderrorRow1)) = 0;
     
     scrsz = get(groot,'ScreenSize');
-    figMin = figure('Position',[1 scrsz(4) scrsz(3) scrsz(4)]); barMin = bar([meanListDistributionVP16', meanListDistributionIR']);
+    figMin = figure('Position',[1 scrsz(4) scrsz(3) scrsz(4)]); barMin = bar([meanListDistributionRow1', meanListDistributionRow2']);
     figMin.Colormap = colormap('copper');
     hold on;
-    errorbar([0.85:numberOfBars-0.15; 1.15:numberOfBars+0.15]', [meanListDistributionVP16', meanListDistributionIR'], [standarderrorVP16', standarderrorIR'],'r.')
-    legend('VP16', 'IR');
+    errorbar([0.85:numberOfBars-0.15; 1.15:numberOfBars+0.15]', [meanListDistributionRow1', meanListDistributionRow2'], [standarderrorRow1', standarderrorRow2'],'r.')
+    legend(nameFirstRow, nameSecondRow);
     ylabel('Percentage of foci');
     if isequal(binLimits, [0,3])
         xlabel('Min distance to the closest heterochromatin')
@@ -37,13 +37,13 @@ function [ hTTestPerNuclei, pValueTTestPerNuclei ] = paintHistogramOfMeansPerNuc
     export_fig(figMin, strcat('results/', outputFile, '_', date), '-pdf');
     
     
-    irPerNuclei = vertcat(allDistacesFromFociToHeterochromatin(1, :))';
-    vp16MinsPerNuclei = vertcat(allDistacesFromFociToHeterochromatin(2, :))';
+    Row2PerNuclei = vertcat(allDistacesFromFociToHeterochromatin(1, :))';
+    Row1MinsPerNuclei = vertcat(allDistacesFromFociToHeterochromatin(2, :))';
     
-    irMeanPerNuclei = cellfun(@(x) mean(x), irPerNuclei);
-    vp16MeanPerNuclei = cellfun(@(x) mean(x), vp16MinsPerNuclei);
+    Row2MeanPerNuclei = cellfun(@(x) mean(x), Row2PerNuclei);
+    Row1MeanPerNuclei = cellfun(@(x) mean(x), Row1MinsPerNuclei);
     
-    [hTTestPerNuclei, pValueTTestPerNuclei] = ttest2(irMeanPerNuclei(~isnan(irMeanPerNuclei)), vp16MeanPerNuclei(~isnan(vp16MeanPerNuclei)));
+    [hTTestPerNuclei, pValueTTestPerNuclei] = ttest2(Row2MeanPerNuclei(~isnan(Row2MeanPerNuclei)), Row1MeanPerNuclei(~isnan(Row1MeanPerNuclei)));
     close(figMin)
 end
 
