@@ -52,8 +52,8 @@ function [ ] = analyzeNetworksAndGetCharacteristics()
     IR_MinDistancesOfFociToHeterocrhomatin = horzcat(allMinDistacesOfFociToHeterochromatin{1, :});
     VP16_MinDistancesOfFociToHeterocrhomatin = horzcat(allMinDistacesOfFociToHeterochromatin{2, :});
     
-    [hTTestMinPerNuclei, pValueTTestMinPerNuclei] = paintHistogramOfMeansPerNuclei(allMinDistacesOfFociToHeterochromatin, 'minDistanceToHeterochromatin', 12, [0,3]);
-    [hTTestMeanPerNuclei, pValueTTestMeanPerNuclei]  = paintHistogramOfMeansPerNuclei(allMeanDistacesOfFociToHeterochromatin, 'meanDistanceToHeterochromatin', 12, [0, 10]);
+    [hTTestMinPerNuclei, pValueTTestMinPerNuclei] = paintHistogramOfMeansPerNuclei(allMinDistacesOfFociToHeterochromatin, 'minDistanceToHeterochromatin', 12, [0,3], 'IR', 'VP16');
+    [hTTestMeanPerNuclei, pValueTTestMeanPerNuclei]  = paintHistogramOfMeansPerNuclei(allMeanDistacesOfFociToHeterochromatin, 'meanDistanceToHeterochromatin', 12, [0, 10], 'IR', 'VP16');
     
     IR_MeanDistancesOfFociToHeterocrhomatin = horzcat(allMeanDistacesOfFociToHeterochromatin{1, :});
     VP16_MeanDistancesOfFociToHeterocrhomatin = horzcat(allMeanDistacesOfFociToHeterochromatin{2, :});
