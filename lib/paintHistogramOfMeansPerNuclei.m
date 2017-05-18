@@ -3,8 +3,8 @@ function [ hTTestPerNuclei, pValueTTestPerNuclei ] = paintHistogramOfMeansPerNuc
 %   Detailed explanation goes here
 
     emptyCells = cellfun(@(x) ~isempty(x), allDistacesFromFociToHeterochromatin);
-    frequenciesRow2 = cellfun(@(x) histcounts(x, numberOfBars, 'BinLimits', binLimits), allDistacesFromFociToHeterochromatin(1, emptyCells(1, :)), 'UniformOutput', false);
-    frequenciesRow1 = cellfun(@(x) histcounts(x, numberOfBars, 'BinLimits', binLimits), allDistacesFromFociToHeterochromatin(2, emptyCells(2, :)), 'UniformOutput', false);
+    frequenciesRow1 = cellfun(@(x) histcounts(x, numberOfBars, 'BinLimits', binLimits), allDistacesFromFociToHeterochromatin(1, emptyCells(1, :)), 'UniformOutput', false);
+    frequenciesRow2 = cellfun(@(x) histcounts(x, numberOfBars, 'BinLimits', binLimits), allDistacesFromFociToHeterochromatin(2, emptyCells(2, :)), 'UniformOutput', false);
     
     listDistributionRow2 = cellfun(@(x) x/sum(x), frequenciesRow2, 'UniformOutput', false);
     listDistributionRow1 = cellfun(@(x) x/sum(x), frequenciesRow1, 'UniformOutput', false);
@@ -37,8 +37,8 @@ function [ hTTestPerNuclei, pValueTTestPerNuclei ] = paintHistogramOfMeansPerNuc
     export_fig(figMin, strcat('results/', outputFile, '_', date), '-pdf');
     
     
-    Row2PerNuclei = vertcat(allDistacesFromFociToHeterochromatin(1, :))';
-    Row1MinsPerNuclei = vertcat(allDistacesFromFociToHeterochromatin(2, :))';
+    Row2PerNuclei = vertcat(allDistacesFromFociToHeterochromatin(2, :))';
+    Row1MinsPerNuclei = vertcat(allDistacesFromFociToHeterochromatin(1, :))';
     
     Row2MeanPerNuclei = cellfun(@(x) mean(x), Row2PerNuclei);
     Row1MeanPerNuclei = cellfun(@(x) mean(x), Row1MinsPerNuclei);
