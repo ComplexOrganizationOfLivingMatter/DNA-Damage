@@ -72,7 +72,7 @@ function [ ] = analyzeNetworksAndGetCharacteristics()
 %     xlabel('Mean distance to heterochromatin')
 %     legend('IR', 'VP16');
     
-    save('results\segmentation\characteristicsOfNetworks', 'networkTableInfo', 'networkTableOtherInfo', 'clusterTableInfo', 'VP16_MeanDistancesOfFociToHeterocrhomatin', 'IR_MeanDistancesOfFociToHeterocrhomatin', 'IR_MinDistancesOfFociToHeterocrhomatin', 'VP16_MinDistancesOfFociToHeterocrhomatin', 'hTTestMinPerNuclei', 'hTTestMeanPerNuclei', 'pValueTTestMinPerNuclei', 'pValueTTestMeanPerNuclei');
+    save('results\segmentation\characteristicsOfNetworks', 'networkTableInfo', 'networkTableOtherInfo', 'clusterTableInfo', 'VP16_MeanDistancesOfFociToHeterocrhomatin', 'IR_MeanDistancesOfFociToHeterocrhomatin', 'IR_MinDistancesOfFociToHeterocrhomatin', 'VP16_MinDistancesOfFociToHeterocrhomatin', 'hTTestMinPerNuclei', 'hTTestMeanPerNuclei', 'pValueTTestMinPerNuclei', 'pValueTTestMeanPerNuclei', 'allMinDistacesOfFociToHeterochromatin', 'allMeanDistacesOfFociToHeterochromatin');
     %meanDistanceHeterchromatinPerFociDegree = padcat(networkTableOtherInfo{:, 1})';
     %meanMinDistanceHeterchromatinPerFociDegree = padcat(networkTableOtherInfo{:, 2})';
     %distanceHeterochromatinPerFociDegree = horzcat(meanDistanceHeterchromatinPerFociDegree, meanMinDistanceHeterchromatinPerFociDegree);
