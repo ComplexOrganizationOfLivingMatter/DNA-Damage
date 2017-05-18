@@ -8,7 +8,7 @@ function [ ] = analyzeRandomFoci( )
     allMeanDistacesOfFociToHeterochromatin = {};
     
     for numRandomFile = 1:size(randomFiles, 1)
-        fullPathFile = randomFiles{numRandomFile};
+        fullPathFile = randomFiles{numRandomFile}
         directory = strrep(fullPathFile, 'randomization', 'segmentation');
         directorySplitted = strsplit(directory, '\');
         directory = strjoin(directorySplitted(1:end-1), '\');
@@ -54,6 +54,6 @@ function [ ] = analyzeRandomFoci( )
     %Get the relevant info after all the compilation
     [hTTestMinPerNuclei, pValueTTestMinPerNuclei] = paintHistogramOfMeansPerNuclei(allMinDistacesOfFociToHeterochromatin, 'minDistanceToHeterochromatin_Random', 12, [0,3]);
     [hTTestMeanPerNuclei, pValueTTestMeanPerNuclei]  = paintHistogramOfMeansPerNuclei(allMeanDistacesOfFociToHeterochromatin, 'meanDistanceToHeterochromatin_Random', 12, [0, 10]);
-
+    save('results\randomization\distancesAndPValues', 'hTTestMinPerNuclei', 'hTTestMeanPerNuclei', 'pValueTTestMinPerNuclei', 'pValueTTestMeanPerNuclei', 'allMinDistacesOfFociToHeterochromatin', 'allMeanDistacesOfFociToHeterochromatin');
 end
 
