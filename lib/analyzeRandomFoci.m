@@ -4,8 +4,8 @@ function [ ] = analyzeRandomFoci( )
 
     randomFiles = getAllFiles('D:\Pablo\DNA-Damage\results\randomization');
     
-    allMinDistacesOfFociToHeterochromatin = {};
-    allMeanDistacesOfFociToHeterochromatin = {};
+    allMinDistacesOfFociToHeterochromatinRandom = {};
+    allMeanDistacesOfFociToHeterochromatinRandom = {};
     
     for numRandomFile = 1:size(randomFiles, 1)
         fullPathFile = randomFiles{numRandomFile}
@@ -41,19 +41,19 @@ function [ ] = analyzeRandomFoci( )
             [ fociClusters ] = createFociClustersOfHeterochromatin( vertcat(randomCentroids{:}), num_hetero_um);
 
             if ~isempty(strfind(fullPathFile, 'IR_30min'))
-                allMinDistacesOfFociToHeterochromatin{1, end+1} = vertcat(fociClusters{:, 2})';
-                allMeanDistacesOfFociToHeterochromatin{1, end+1} = vertcat(fociClusters{:, 3})';
+                allMinDistacesOfFociToHeterochromatinRandom{1, end+1} = vertcat(fociClusters{:, 2})';
+                allMeanDistacesOfFociToHeterochromatinRandom{1, end+1} = vertcat(fociClusters{:, 3})';
             else
-                allMinDistacesOfFociToHeterochromatin{2, end+1} = vertcat(fociClusters{:, 2})';
-                allMeanDistacesOfFociToHeterochromatin{2, end+1} = vertcat(fociClusters{:, 3})';
+                allMinDistacesOfFociToHeterochromatinRandom{2, end+1} = vertcat(fociClusters{:, 2})';
+                allMeanDistacesOfFociToHeterochromatinRandom{2, end+1} = vertcat(fociClusters{:, 3})';
             end
         end
             
     end
     
     %Get the relevant info after all the compilation
-    [hTTestMinPerNuclei, pValueTTestMinPerNuclei] = paintHistogramOfMeansPerNuclei(allMinDistacesOfFociToHeterochromatin, 'minDistanceToHeterochromatin_Random', 12, [0,3]);
-    [hTTestMeanPerNuclei, pValueTTestMeanPerNuclei]  = paintHistogramOfMeansPerNuclei(allMeanDistacesOfFociToHeterochromatin, 'meanDistanceToHeterochromatin_Random', 12, [0, 10]);
-    save('results\randomization\distancesAndPValues', 'hTTestMinPerNuclei', 'hTTestMeanPerNuclei', 'pValueTTestMinPerNuclei', 'pValueTTestMeanPerNuclei', 'allMinDistacesOfFociToHeterochromatin', 'allMeanDistacesOfFociToHeterochromatin');
+    [hTTestMinPerNuclei, pValueTTestMinPerNuclei] = paintHistogramOfMeansPerNuclei(allMinDistacesOfFociToHeterochromatinRandom, 'minDistanceToHeterochromatin_Random', 12, [0,3]);
+    [hTTestMeanPerNuclei, pValueTTestMeanPerNuclei]  = paintHistogramOfMeansPerNuclei(allMeanDistacesOfFociToHeterochromatinRandom, 'meanDistanceToHeterochromatin_Random', 12, [0, 10]);
+    save('results\randomization\distancesAndPValues', 'hTTestMinPerNuclei', 'hTTestMeanPerNuclei', 'pValueTTestMinPerNuclei', 'pValueTTestMeanPerNuclei', 'allMinDistacesOfFociToHeterochromatinRandom', 'allMeanDistacesOfFociToHeterochromatinRandom');
 end
 
