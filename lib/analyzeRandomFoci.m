@@ -55,5 +55,6 @@ function [ ] = analyzeRandomFoci( )
     %Get the relevant info after all the compilation
     [hTTestMinPerNuclei, pValueTTestMinPerNuclei] = paintHistogramOfMeansPerNuclei(allMinDistacesOfFociToHeterochromatinRandom, 'minDistanceToHeterochromatin_Random', 12, [0,3], 'IR', 'VP16');
     [hTTestMeanPerNuclei, pValueTTestMeanPerNuclei]  = paintHistogramOfMeansPerNuclei(allMeanDistacesOfFociToHeterochromatinRandom, 'meanDistanceToHeterochromatin_Random', 12, [0, 10], 'IR', 'VP16');
+    save('results\randomization\pvaluesOfComparisons', 'hTTestMinPerNuclei', 'pValueTTestMinPerNuclei', 'hTTestMeanPerNuclei', 'pValueTTestMeanPerNuclei');
 end
 
